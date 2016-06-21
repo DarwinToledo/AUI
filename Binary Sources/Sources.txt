@@ -1,0 +1,41 @@
+This file outlines where to find the third party tools (tools authored entirely by others) used within UUI or used to create it.
+
+The binarysources.zip contains the source code for dd.exe, grldr, syslinux.exe, 7zip, mke2fs, and fat32format.exe. 
+It can be found at http://pendrivelinux.com/downloads/Universal-USB-Installer/binarysources.zip 
+
+(Nullsoft Scriptable Install System) used to create UUI Universal USB Installer
+
+Homepage: http://nsis.sourceforge.net/Main_Page
+Binary/Source: http://nsis.sourceforge.net/Download
+
+dd.exe (DD For Windows)
+
+Homepage: http://www.chrysocome.net/dd
+Binary/Source http://www.chrysocome.net/download
+
+grldr (Grub4DOS)
+
+Homepage: http://sourceforge.net/projects/grub4dos/files/
+Source: http://sourceforge.net/projects/grub4dos/files/GRUB4DOS/grub4dos%200.4.4/grub4dos-0.4.4-src.zip/download
+Binary: http://sourceforge.net/projects/grub4dos/files/GRUB4DOS/grub4dos%200.4.4/grub4dos-0.4.4.zip/download
+
+syslinux.exe, memdisk, menu.c32, vesamenu.c32, chain.c32 - (Syslinux)
+
+Homepage: http://syslinux.zytor.com
+Binary/Source 4.07: http://www.kernel.org/pub/linux/utils/boot/syslinux/syslinux-4.07.zip
+
+7zG.exe, 7z.dll (7zip)
+
+Homepage: http://www.7-zip.org
+Binary: http://downloads.sourceforge.net/project/sevenzip/7-Zip/9.20/7z920.exe
+Source: http://downloads.sourceforge.net/sevenzip/7z920.tar.bz2
+
+Mke2fs.exe (Mke2fs)
+
+Homepage: http://www.ext2fsd.com
+Binary/Source: http://sourceforge.net/projects/ext2fsd/files/Mke2fs/0.02/mke2fs-0.02.zip/download
+
+fat32format.exe (fat32format)
+
+Homepage: http://www.ridgecrop.demon.co.uk/index.htm?fat32format.htm
+Binary/Source: http://www.ridgecrop.demon.co.uk/download/fat32formatsrc.zip
