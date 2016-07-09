@@ -1,6 +1,6 @@
 This file outlines where to find the third party tools (tools authored entirely by others) used within UUI or used to create it.
 
-The binarysources.zip contains the source code for dd.exe, grldr, syslinux.exe, 7zip, mke2fs, and fat32format.exe. 
+The binarysources.zip contains the source code for the third party tools; dd.exe, grldr, syslinux.exe, 7zip, mke2fs, and fat32format.exe. 
 It can be found at http://pendrivelinux.com/downloads/Universal-USB-Installer/binarysources.zip 
 
 (Nullsoft Scriptable Install System) used to create UUI Universal USB Installer
@@ -23,6 +23,7 @@ syslinux.exe, memdisk, menu.c32, vesamenu.c32, chain.c32 - (Syslinux)
 
 Homepage: http://syslinux.zytor.com
 Binary/Source 4.07: http://www.kernel.org/pub/linux/utils/boot/syslinux/syslinux-4.07.zip
+Binary/Source 6.03: http://www.kernel.org/pub/linux/utils/boot/syslinux/syslinux-6.03.zip
 
 7zG.exe, 7z.dll (7zip)
 

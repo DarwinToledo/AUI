@@ -30,6 +30,8 @@ Many textbook and online resources were also used over the past several years to
 	
 Changelog:
 
+    06/29/16 - Version 1.9.6.6: Update to support Cub Linux.
+    06/17/16 - Version 1.9.6.5: Update to re-support Archbang, Archlinux, newer Dban, and CentOS. Added Syslinux 6.03.
     04/05/16 - Version 1.9.6.4: Update Links, remove Archlinux until a fix is found, disable feature to close all open explorer windows when format option is selected.
     12/30/15 - Version 1.9.6.3: Update to support Caine, Pentoo, Parrot Security OS, and Windows 10 Installer (untested).
     10/28/15 - Version 1.9.6.2: Update Links, remove discontinued projects.

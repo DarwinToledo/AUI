@@ -1,17 +1,34 @@
-; Universal USB Installer ©2009-2016 Lance http://www.pendrivelinux.com (See Uni-USB-Installer-Copying.txt and -Readme.txt for more information, Credits, and Licensing)
-; 7-Zip © Igor Pavlovis http://7-zip.org (unmodified binaries used)
-; Syslinux © H. Peter Anvin http://syslinux.zytor.com (unmodified binary used)
-; dd.exe © John Newbigin http://www.chrysocome.net/dd (unmodified binary used)
-; mke2fs.exe © Matt WU http://ext2fsd.sourceforge.net (unmodified binary used)
-; grldr GRUB4DOS © the Gna! people http://www.gnu.org/software/grub (unmodified binary used)
-; Fat32format.exe © Tom Thornhill Ridgecorp Consultants http://www.ridgecrop.demon.co.uk (unmodified binary used)
-; NSIS Installer © Contributors http://nsis.sourceforge.net - This script was created using NSIS, you must install and use NSIS to compile this script. http://nsis.sourceforge.net/Download
-; Universal USB Installer may contain remnants of Cedric Tissieres's Tazusb.exe for Slitaz (slitaz@objectif-securite.ch), as his work was used as a base for singular distro installers that preceded UUI.
+/*
+  This file is part of Universal USB Installer (UUI).
+ 
+  UUI is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  any later version.
+ 
+  UUI is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+ 
+  You should have received a copy of the GNU General Public License
+  along with UUI.  If not, see <http://www.gnu.org/licenses/>.
 
+  Universal USB Installer (UUI) ©2009-2016 Lance http://www.pendrivelinux.com (See Uni-USB-Installer-Copying.txt and -Readme.txt for more information, and additional credits)
+  7-Zip © Igor Pavlovis http://7-zip.org (unmodified binaries used)
+  Syslinux © H. Peter Anvin http://syslinux.zytor.com (unmodified binary used)
+  dd.exe © John Newbigin http://www.chrysocome.net/dd (unmodified binary used)
+  mke2fs.exe © Matt WU http://ext2fsd.sourceforge.net (unmodified binary used)
+  grldr GRUB4DOS © the Gna! people http://www.gnu.org/software/grub (unmodified binary used)
+  Fat32format.exe © Tom Thornhill Ridgecorp Consultants http://www.ridgecrop.demon.co.uk (unmodified binary used)
+  NSIS Installer © Contributors http://nsis.sourceforge.net - This script was created using NSIS, you must install and use NSIS to compile this script. http://nsis.sourceforge.net/Download
+  Universal USB Installer may contain remnants of Cedric Tissieres's Tazusb.exe for Slitaz (slitaz@objectif-securite.ch), as his work was used as a base for singular distro installers that preceded UUI.
+ */
+ 
 !define NAME "Universal USB Installer"
 !define FILENAME "Universal-USB-Installer"
-!define VERSION "1.9.6.4"
-!define MUI_ICON "${NSISDIR}\Contrib\Graphics\Icons\nsis1-install.ico"
+!define VERSION "1.9.6.6"
+!define MUI_ICON "images\usbicon.ico"
 
 ; MoreInfo Plugin - Adds Version Tab fields to Properties. Plugin created by onad http://nsis.sourceforge.net/MoreInfo_plug-in
 VIProductVersion "${VERSION}"
@@ -102,7 +119,7 @@ Var SearchDir
 ; Interface settings
 !define MUI_FINISHPAGE_NOAUTOCLOSE
 !define MUI_HEADERIMAGE
-!define MUI_HEADERIMAGE_BITMAP "usb-logo-nsis.bmp" 
+!define MUI_HEADERIMAGE_BITMAP "images\usb-logo-nsis.bmp" 
 !define MUI_HEADERIMAGE_BITMAP_NOSTRETCH
 !define MUI_HEADERIMAGE_RIGHT
 
@@ -605,6 +622,7 @@ Function DoSyslinux ; Install Syslinux on chosen USB
   SetShellVarContext all
   InitPluginsDir
   File /oname=$PLUGINSDIR\syslinux.exe "syslinux.exe"
+  File /oname=$PLUGINSDIR\syslinux603.exe "syslinux603.exe"
   File /oname=$PLUGINSDIR\syslinux.cfg "syslinux.cfg"  
   File /oname=$PLUGINSDIR\7zG.exe "7zG.exe"
   File /oname=$PLUGINSDIR\7z.dll "7z.dll"  
@@ -619,14 +637,18 @@ Function DoSyslinux ; Install Syslinux on chosen USB
   ;${If} $DistroName == "Tails"
   ;${OrIf} $DistroName == "Clonezilla"  
    ; Do nothing here... we will use the Newer Syslinux version packed with the ISO
-  ;${Else}
+  ${If} $DistroName == "ArchLinux"
+  ${OrIf} $DistroName == "Archbang"
+  ExecWait '$PLUGINSDIR\syslinux603.exe -maf -d /uui $DestDisk' $R8 ; directory path for syslinux /uui   
+  DetailPrint "Syslinux Errors $R8"
+  ${Else}
   ExecWait '$PLUGINSDIR\syslinux.exe -maf -d /uui $DestDisk' $R8 ; directory path for syslinux /uui   
   DetailPrint "Syslinux Errors $R8"
   Banner::destroy
     ${If} $R8 != 0
      MessageBox MB_ICONEXCLAMATION|MB_OK $(WarningSyslinux)
     ${EndIf} 
-  ;${EndIf}    
+  ${EndIf}    
   
   DetailPrint "Creating Label UUI on $DestDisk"
   ;nsExec::ExecToStack '"cmd" /c "VOL $DestDisk"' 

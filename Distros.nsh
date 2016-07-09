@@ -1,4 +1,20 @@
-;      CopyLeft Lance - Pendrivelinux.com
+/*
+  This file is part of Universal USB Installer (UUI).
+ 
+  UUI is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  any later version.
+ 
+  UUI is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+ 
+  You should have received a copy of the GNU General Public License
+  along with UUI.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 !include ReplaceInFile.nsh
 
 Function FindConfig ; Set config path and file 
@@ -160,6 +176,19 @@ FunctionEnd
    ${AndIf} ${FileExists} "$DestDisk\LiveOS\livecd-iso-to-disk"  ; Probably Fedora based
    !insertmacro ReplaceInFile "root=live:CDLABEL=" "root=live:LABEL=UUI NULL=" "all" "all" "$DestDisk\isolinux\isolinux.cfg"   
    ${EndIf} 
+   
+; Mandriva\CentOS
+   ${If} ${FileExists} "$DestDisk\isolinux\isolinux.cfg"
+   ${AndIf} ${FileExists} "$DestDisk\LiveOS\*.*"
+   !insertmacro ReplaceInFile "root=live:CDLABEL=" "root=live:LABEL=UUI NULL=" "all" "all" "$DestDisk\isolinux\isolinux.cfg"    
+   ${EndIf}    
+
+; CentOS EFI   
+   ${If} $DistroName == "Centos"   
+   ${AndIf} ${FileExists} "$DestDisk\EFI\BOOT\grub.cfg"
+   !insertmacro ReplaceInFile "root=live:LABEL=Cent" "root=live:LABEL=UUI NULL=" "all" "all" "$DestDisk\EFI\BOOT\grub.cfg" 
+   !insertmacro ReplaceInFile "set default=$\"1$\"" "set default=$\"0$\"" "all" "all" "$DestDisk\EFI\BOOT\grub.cfg"  
+   ${EndIf}      
 
 ; For Puppy Based and derivatives
    ${If} ${FileExists} "$DestDisk\isolinux.cfg" 
@@ -176,11 +205,19 @@ FunctionEnd
    ${EndIf} 
 
 ; Archlinux
-   ${If} ${FileExists} "$DestDisk\arch\boot\syslinux\archiso.cfg"       
-   !insertmacro ReplaceInFile "archisolabel=ARCH" "archisolabel=UUI NULL=" "all" "all" "$DestDisk\arch\boot\syslinux\archiso_pxe64.cfg"         
-   !insertmacro ReplaceInFile "archisolabel=ARCH" "archisolabel=UUI NULL=" "all" "all" "$DestDisk\arch\boot\syslinux\archiso_pxe32.cfg"  
-   !insertmacro ReplaceInFile "archisolabel=ARCH" "archisolabel=UUI NULL=" "all" "all" "$DestDisk\arch\boot\syslinux\archiso_sys64.cfg"          
-   !insertmacro ReplaceInFile "archisolabel=ARCH" "archisolabel=UUI NULL=" "all" "all" "$DestDisk\arch\boot\syslinux\archiso_sys32.cfg"     
+   ${If} ${FileExists} "$DestDisk\arch\boot\syslinux\archiso.cfg"     
+   !insertmacro ReplaceInFile "archisolabel=" "archisolabel=UUI NULL=" "all" "all" "$DestDisk\arch\boot\syslinux\archiso_pxe64.cfg"         
+   !insertmacro ReplaceInFile "archisolabel=" "archisolabel=UUI NULL=" "all" "all" "$DestDisk\arch\boot\syslinux\archiso_pxe32.cfg"  
+   !insertmacro ReplaceInFile "archisolabel=" "archisolabel=UUI NULL=" "all" "all" "$DestDisk\arch\boot\syslinux\archiso_sys64.cfg"          
+   !insertmacro ReplaceInFile "archisolabel=" "archisolabel=UUI NULL=" "all" "all" "$DestDisk\arch\boot\syslinux\archiso_sys32.cfg"  
+   !insertmacro ReplaceInFile "archisolabel=" "archisolabel=UUI NULL=" "all" "all" "$DestDisk\loader\entries\archiso-x86_64.conf"  
+   !insertmacro ReplaceInFile "archisolabel=" "archisolabel=UUI NULL=" "all" "all" "$DestDisk\loader\entries\archiso_x86_64.conf"     
+   ${EndIf}  
+; Archbang
+   ${If} ${FileExists} "$DestDisk\arch\boot\syslinux\syslinux.cfg"     
+   !insertmacro ReplaceInFile "archisolabel=" "archisolabel=UUI NULL=" "all" "all" "$DestDisk\arch\boot\syslinux\syslinux.cfg"         
+   !insertmacro ReplaceInFile "archisolabel=" "archisolabel=UUI NULL=" "all" "all" "$DestDisk\loader\entries\archiso-x86_64.conf"
+   !insertmacro ReplaceInFile "archisolabel=" "archisolabel=UUI NULL=" "all" "all" "$DestDisk\loader\entries\archiso_x86_64.conf"    
    ${EndIf}  
 
 ; Knoppix
@@ -188,12 +225,6 @@ FunctionEnd
    ${OrIf} ${FileExists} "$DestDisk\KNOPPIX\KNOPPIX"    
    !insertmacro ReplaceInFile "APPEND ramdisk_size" "APPEND noprompt ramdisk_size" "all" "all" "$DestDisk\$CopyPath\$ConfigFile"   
    ${EndIf}  
-   
-; Mandriva
-   ${If} ${FileExists} "$DestDisk\isolinux\isolinux.cfg"
-   ${AndIf} ${FileExists} "$DestDisk\LiveOS\*.*"
-   !insertmacro ReplaceInFile "root=live:CDLABEL=" "root=live:LABEL=UUI NULL=" "all" "all" "$DestDisk\isolinux\isolinux.cfg"    
-   ${EndIf} 
    
 ; PCLinuxOS
    ${If} ${FileExists} "$DestDisk\isolinux\isolinux.cfg" 
@@ -463,6 +494,8 @@ FunctionEnd
 
 Function OldSysFix ; fix to force use of UUI packaged version of syslinux... 
  ${IfNot} ${FileExists} "$DestDisk\utils\win32\syslinux.exe"
+  ${AndIf} $DistroName != "ArchLinux"
+    ${AndIf} $DistroName != "ArchBang"
  DetailPrint "Checking if we need to replace vesamenu.c32, menu.c32, and chain.c32"   
   !insertmacro CallFindFiles $DestDisk chain.c32 CBFUNC
   !insertmacro CallFindFiles $DestDisk vesamenu.c32 CBFUNC

@@ -1,7 +1,24 @@
+/*
+  This file is part of Universal USB Installer (UUI).
+ 
+  UUI is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 2 of the License, or
+  any later version.
+ 
+  UUI is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+ 
+  You should have received a copy of the GNU General Public License
+  along with UUI.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 Function SetISOFileName
 
-     !insertmacro SetISOFileNames "--- Ubuntu 32/64 Bit ---" "" "" "" "" ""
-	 !insertmacro SetISOFileNames "" "" "" "" "" "" 
+ !insertmacro SetISOFileNames "--- Ubuntu 32/64 Bit ---" "" "" "" "" ""
+ !insertmacro SetISOFileNames "" "" "" "" "" "" 
 	 
   !insertmacro SetISOFileNames "Ubuntu" "ubuntu*desktop*.iso" "http://www.ubuntu.com/download/desktop" "casper" "http://ubuntu.com/desktop" "Ubuntu"   
   !insertmacro SetISOFileNames "Edubuntu" "edubuntu*dvd*.iso" "http://cdimage.ubuntu.com/edubuntu/releases/trusty/release/edubuntu-14.04.4-dvd-i386.iso" "casper" "http://edubuntu.org/" "Edubuntu" 
@@ -69,8 +86,8 @@ Function SetISOFileName
   !insertmacro SetISOFileNames "Android" "android*.iso" "http://code.google.com/p/android-x86/downloads/list" "no" "http://android-x86.googlecode.com" "Android x86"
   !insertmacro SetISOFileNames "Antix" "AntiX*.iso" "http://sourceforge.net/projects/antix-linux/files/Final/antiX-13.1/antiX-13.1_386-full.iso/download" "no" "http://antix.mepis.org/index.php?title=Main_Page" "AntiX"
   !insertmacro SetISOFileNames "AOMEI" "amlnx.iso" "http://www.aomeisoftware.com/download/adb/amlnx.iso" "no" "http://www.backup-utility.com/" "AOMEI (Disk Backup)"
-  !insertmacro SetISOFileNames "ArchBang" "archBang*.iso" "https://sourceforge.net/projects/archbang/files/latest/download?source=files" "no" "http://archbang.org" "ArchBang"
-  ;!insertmacro SetISOFileNames "ArchLinux" "archlinux*.iso" "http://mirror.rackspace.com/archlinux/iso/2016.04.01/archlinux-2016.04.01-dual.iso" "no" "http://www.archlinux.org" "ArchLinux"
+  !insertmacro SetISOFileNames "ArchBang" "archBang*x86_64.iso" "https://sourceforge.net/projects/archbang/files/archbang-openrc-rc-140616-x86_64.iso/download" "no" "http://archbang.org" "ArchBang"
+  !insertmacro SetISOFileNames "ArchLinux" "archlinux*dual.iso" "http://mirror.rackspace.com/archlinux/iso/2016.06.01/archlinux-2016.06.01-dual.iso" "no" "http://www.archlinux.org" "ArchLinux"
   !insertmacro SetISOFileNames "ArtistX" "artistx*.iso" "http://bo.mirror.garr.it/mirrors/artistx/artistx_1.5_live_dvd_iso_15_09_2013.iso" "casper" "http://www.artistx.org" "ArtistX"
   !insertmacro SetISOFileNames "Baltix Linux" "Baltix*.iso" "http://download.vikis.lt/baltix/Baltix-Linux-14.04-desktop-2014-06.iso" "casper" "http://baltix.akl.lt/" "Baltix Linux"
   !insertmacro SetISOFileNames "BCCD" "bccd*.iso" "http://cluster.earlham.edu/bccd-ng/stable/bccd-3.3.0.i386.iso" "no" "http://bccd.net/" "BCCD"
@@ -78,10 +95,11 @@ Function SetISOFileName
   !insertmacro SetISOFileNames "Bodhi" "bodhi*.iso" "http://sourceforge.net/projects/bodhilinux/files/latest/download" "casper" "http://bodhilinux.com" "Bodhi"
   !insertmacro SetISOFileNames "Boot Repair Disk" "boot-repair-disk.iso" "http://sourceforge.net/projects/boot-repair-cd/files/latest/download" "no" "http://sourceforge.net/p/boot-repair-cd/home/Home/" "Boot Repair Disk"
   !insertmacro SetISOFileNames "Carmedia" "carmedia*.iso" "http://ac-services.eu/carmedia/carmedia-stable-12.04.iso" "casper" "" ""   
-  !insertmacro SetISOFileNames "CentOS" "CentOS*LiveCD*.iso" "http://mirrors.kernel.org/centos/7/isos/x86_64/CentOS-7-x86_64-LiveCD-1503.iso" "no" "http://www.centos.org" "CentOS"
+  !insertmacro SetISOFileNames "CentOS" "CentOS*Live*.iso" "http://mirrors.kernel.org/centos/7.2.1511/isos/x86_64/CentOS-7-x86_64-LiveGNOME-1511.iso" "no" "http://www.centos.org" "CentOS"
   !insertmacro SetISOFileNames "Clonezilla" "clonezilla*.iso" "http://sourceforge.net/projects/clonezilla/files/clonezilla_live_stable/2.4.2-10/clonezilla-live-2.4.2-10-amd64.iso/download" "no" "http://clonezilla.org" "Clonezilla"
   !insertmacro SetISOFileNames "Crunchbang" "crunchbang*.iso" "http://crunchbanglinux.org/downloads/" "no" "http://crunchbanglinux.org" "Crunchbang"
-  !insertmacro SetISOFileNames "DBAN 2.2.X" "dban-2.2.*_i586.iso" "http://downloads.sourceforge.net/project/dban/dban/dban-2.2.7/dban-2.2.7_i586.iso?use_mirror=autodetect" "no" "http://www.dban.org" "DBAN"
+  !insertmacro SetISOFileNames "Cub Linux" "cub*.iso" "https://cublinux.com/download/" "casper" "https://cublinux.com/" "Cub Linux"  
+  !insertmacro SetISOFileNames "DBAN" "dban*_i586.iso" "https://sourceforge.net/projects/dban/files/dban/dban-2.3.0/dban-2.3.0_i586.iso/download" "no" "http://www.dban.org" "DBAN"
   !insertmacro SetISOFileNames "Deepin Linux" "deepin*.iso" "http://www.linuxdeepin.com/download" "no" "http://www.linuxdeepin.com/" "Deepin"
   !insertmacro SetISOFileNames "DRBL" "drbl-live*.iso" "http://sourceforge.net/projects/drbl/files/drbl_live_stable/2.1.0-12/drbl-live-xfce-2.1.0-12-i686-pae.iso/download" "no" "http://drbl.sourceforge.net" "DRBL"
   !insertmacro SetISOFileNames "Dreamlinux" "Dreamlinux-5*.iso" "http://download.linux-live-cd.org/iso/Dreamlinux/Dreamlinux-5.iso" "no" "http://www.dreamlinux.net" "Dreamlinux"
