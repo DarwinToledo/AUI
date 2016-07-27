@@ -41,7 +41,7 @@ VIAddVersionKey FileDescription "Universal Linux UFD Creator"
 VIAddVersionKey License "GPL Version 2"
 
 Name "${NAME} ${VERSION}"
-OutFile "${FILENAME}-${VERSION}.exe"
+OutFile "C:\Users\Rodrigo\Desktop\${FILENAME}-${VERSION}.exe"
 RequestExecutionLevel admin ;highest
 SetCompressor /SOLID /FINAL LZMA
 CRCCheck On
