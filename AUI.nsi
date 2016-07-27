@@ -25,12 +25,10 @@
   Universal USB Installer may contain remnants of Cedric Tissieres's Tazusb.exe for Slitaz (slitaz@objectif-securite.ch), as his work was used as a base for singular distro installers that preceded UUI.
  */
  
- 
+!execute "Resources\Scripts\Build Counter v1.0.exe"
+         
 !addincludedir "Resources\Scripts"
-!define NAME "Absolute USB Installer"
-!define FILENAME "Absolute-USB-Installer"
-!define VERSION "1.0.0.69"
-!define MUI_ICON "Resources\images\Install.ico"
+!include       "Resources\Scripts\Defines.nsh"
 
 ; MoreInfo Plugin - Adds Version Tab fields to Properties. Plugin created by onad http://nsis.sourceforge.net/MoreInfo_plug-in
 VIProductVersion "${VERSION}"
@@ -41,13 +39,14 @@ VIAddVersionKey FileDescription "Universal Linux UFD Creator"
 VIAddVersionKey License "GPL Version 2"
 
 Name "${NAME} ${VERSION}"
+Caption "${NAME} ${VERSION} - ${RODRI_WEBSITE}"
 OutFile "C:\Users\Rodrigo\Desktop\${FILENAME}-${VERSION}.exe"
 RequestExecutionLevel admin ;highest
 SetCompressor /SOLID /FINAL LZMA
 CRCCheck On
 XPStyle on
 ShowInstDetails show
-BrandingText "Universal USB Installer http://www.pendrivelinux.com"
+BrandingText "${NAME} ${RODRI_WEBSITE}"
 CompletedText "Installation Done, Process is Complete!"
 InstallButtonText Create
 
@@ -57,64 +56,8 @@ InstallButtonText Create
 !include FileFunc.nsh
 !include LogicLib.nsh
 !include FileNames.nsh ; FileNames Macro Script created by Lance http://www.pendrivelinux.com
+!include variables.nsh
 
-; Variables
-Var Capacity
-Var VolName
-Var JustDrive
-Var Letters
-Var Checker
-Var OnlyVal
-Var FileFormat
-Var Dialog
-Var LabelDrivePage
-Var Distro
-Var DistroName
-Var ISOFileName
-Var SomeFileExt
-Var DestDriveTxt
-Var DestDrive
-Var LinuxDistroSelection
-Var LabelISOSelection
-Var ISOFileTxt
-Var TheISO
-Var JustISO
-Var JustISOName
-Var JustISOPath
-Var IsoFile
-Var ISOSelection
-Var ISOTest
-Var Casper
-Var CasperSelection
-Var Persistence
-Var SizeOfCasper
-Var DestDisk
-Var DownloadISO
-Var DownloadMe
-Var Link
-Var Links
-Var Auth
-Var DownLink
-Var AllDriveOption
-Var DisplayAll
-Var Format 
-Var FormatMe
-Var DistroLink
-Var Homepage
-Var OfficialSite
-Var OfficialName
-Var RemainingSpace
-Var CasperSlider
-Var SlideSpot
-Var MaxPersist
-Var BlockSize
-Var ConfigPath
-Var CopyPath
-Var ConfigFile
-Var SearchFile
-Var SearchDir
-;Var VolLab
-;Var VolLabErr
 
 !include DiskVoodoo.nsh ; DiskVoodoo Script created by Lance http://www.pendrivelinux.com
 
