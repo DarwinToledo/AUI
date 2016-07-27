@@ -31,8 +31,8 @@ FunctionEnd
 Function GetCaspTools
 SetShellVarContext all
 InitPluginsDir
-File /oname=$PLUGINSDIR\dd.exe "dd.exe"
-File /oname=$PLUGINSDIR\mke2fs.exe "mke2fs.exe"
+File /oname=$PLUGINSDIR\dd.exe "Binary\dd.exe"
+File /oname=$PLUGINSDIR\mke2fs.exe "Binary\mke2fs.exe"
 DetailPrint "Now Creating a Casper RW File" 
 DetailPrint "Creating the Persistent File: The progress bar will not move until finished. Please be patient..." 
 FunctionEnd
@@ -40,7 +40,7 @@ FunctionEnd
 Function UseDD
 SetShellVarContext all
 InitPluginsDir
-File /oname=$PLUGINSDIR\dd.exe "dd.exe"
+File /oname=$PLUGINSDIR\dd.exe "Binary\dd.exe"
 DetailPrint "Creating the $DistroName Image using DD on $DestDisk. This will take several minutes!"  
 DetailPrint "The progress bar will not move until this operation has finished. Please be patient..." 
 FunctionEnd

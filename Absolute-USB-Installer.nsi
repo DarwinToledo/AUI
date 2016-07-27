@@ -25,10 +25,12 @@
   Universal USB Installer may contain remnants of Cedric Tissieres's Tazusb.exe for Slitaz (slitaz@objectif-securite.ch), as his work was used as a base for singular distro installers that preceded UUI.
  */
  
-!define NAME "Universal USB Installer"
-!define FILENAME "Universal-USB-Installer"
-!define VERSION "1.9.6.6"
-!define MUI_ICON "images\usbicon.ico"
+ 
+!addincludedir "Resources\Scripts"
+!define NAME "Absolute USB Installer"
+!define FILENAME "Absolute-USB-Installer"
+!define VERSION "1.0.0.69"
+!define MUI_ICON "Resources\images\Install.ico"
 
 ; MoreInfo Plugin - Adds Version Tab fields to Properties. Plugin created by onad http://nsis.sourceforge.net/MoreInfo_plug-in
 VIProductVersion "${VERSION}"
@@ -41,7 +43,7 @@ VIAddVersionKey License "GPL Version 2"
 Name "${NAME} ${VERSION}"
 OutFile "${FILENAME}-${VERSION}.exe"
 RequestExecutionLevel admin ;highest
-SetCompressor LZMA
+SetCompressor /SOLID /FINAL LZMA
 CRCCheck On
 XPStyle on
 ShowInstDetails show
@@ -119,7 +121,7 @@ Var SearchDir
 ; Interface settings
 !define MUI_FINISHPAGE_NOAUTOCLOSE
 !define MUI_HEADERIMAGE
-!define MUI_HEADERIMAGE_BITMAP "images\usb-logo-nsis.bmp" 
+!define MUI_HEADERIMAGE_BITMAP "Resources\images\usb-logo-nsis.bmp"
 !define MUI_HEADERIMAGE_BITMAP_NOSTRETCH
 !define MUI_HEADERIMAGE_RIGHT
 
@@ -331,7 +333,7 @@ Function FormatYes ; If Format is checked, do something
   
   SetShellVarContext all
   InitPluginsDir
-  File /oname=$PLUGINSDIR\fat32format.exe "fat32format.exe"  
+  File /oname=$PLUGINSDIR\fat32format.exe "Binary\fat32format.exe"
   DetailPrint "Formatting $DestDisk as Fat32"
   nsExec::ExecToLog '"cmd" /c "echo y|$PLUGINSDIR\fat32format -c$BlockSize $DestDisk /Q /y"'
   ${EndIf} 
@@ -621,15 +623,15 @@ Function DoSyslinux ; Install Syslinux on chosen USB
 
   SetShellVarContext all
   InitPluginsDir
-  File /oname=$PLUGINSDIR\syslinux.exe "syslinux.exe"
-  File /oname=$PLUGINSDIR\syslinux603.exe "syslinux603.exe"
-  File /oname=$PLUGINSDIR\syslinux.cfg "syslinux.cfg"  
-  File /oname=$PLUGINSDIR\7zG.exe "7zG.exe"
-  File /oname=$PLUGINSDIR\7z.dll "7z.dll"  
-  File /oname=$PLUGINSDIR\chain.c32 "chain.c32" 
-  File /oname=$PLUGINSDIR\menu.c32 "menu.c32"    
-  File /oname=$PLUGINSDIR\vesamenu.c32 "vesamenu.c32"  
-  File /oname=$PLUGINSDIR\mbrid "mbrid" 
+  File /oname=$PLUGINSDIR\syslinux.exe "Binary\syslinux.exe"
+  File /oname=$PLUGINSDIR\syslinux603.exe "Binary\syslinux603.exe"
+  File /oname=$PLUGINSDIR\syslinux.cfg "Binary\syslinux.cfg"
+  File /oname=$PLUGINSDIR\7zG.exe "Binary\7zG.exe"
+  File /oname=$PLUGINSDIR\7z.dll "Binary\7z.dll"
+  File /oname=$PLUGINSDIR\chain.c32 "Binary\chain.c32"
+  File /oname=$PLUGINSDIR\menu.c32 "Binary\menu.c32"
+  File /oname=$PLUGINSDIR\vesamenu.c32 "Binary\vesamenu.c32"
+  File /oname=$PLUGINSDIR\mbrid "Binary\mbrid"
 
   CreateDirectory "$DestDisk\uui" ; Create the uui directory
   CopyFiles "$PLUGINSDIR\syslinux.cfg" "$DestDisk\uui\syslinux.cfg" ; Copy syslinux.cfg to uui directory... we will redirect syslinux from here.
