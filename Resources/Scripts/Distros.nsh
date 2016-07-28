@@ -96,8 +96,8 @@ FunctionEnd
 !macro Distros  
  Call FindConfig ; Set config path and file
  ;${WriteToFile} "CONFIG /$ConfigPath/$ConfigFile$\r$\nAPPEND /$ConfigPath" $R0 
- !insertmacro ReplaceInFile "CONFIG CONFILE" "CONFIG /$ConfigPath/$ConfigFile" "all" "all" "$DestDisk\uui\syslinux.cfg"  
- !insertmacro ReplaceInFile "APPEND CONPATH" "APPEND /$ConfigPath" "all" "all" "$DestDisk\uui\syslinux.cfg"
+ !insertmacro ReplaceInFile "CONFIG CONFILE" "CONFIG /$ConfigPath/$ConfigFile" "all" "all" "$DestDisk\AUI\syslinux.cfg"
+ !insertmacro ReplaceInFile "APPEND CONPATH" "APPEND /$ConfigPath" "all" "all" "$DestDisk\AUI\syslinux.cfg"
  
 ; Initiate Plugins Directory for potential use
   SetShellVarContext all
@@ -106,18 +106,18 @@ FunctionEnd
 
 ; For Ubuntu Desktop and derivatives
   ${If} ${FileExists} "$DestDisk\isolinux\txt.cfg" ; Rename the following for isolinux txt.cfg
-  !insertmacro ReplaceInFile "initrd=/casper" "cdrom-detect/try-usb=true noprompt floppy.allowed_drive_mask=0 ignore_uuid initrd=/casper" "all" "all" "$DestDisk\isolinux\txt.cfg"   
+  !insertmacro ReplaceInFile "initrd=/casper" "cdrom-detect/try-usb=true noprompt floppy.allowed_drive_mask=0 ignore_AUId initrd=/casper" "all" "all" "$DestDisk\isolinux\txt.cfg"
   ${ElseIf} ${FileExists} "$DestDisk\isolinux\text.cfg" ; Rename the following for isolinux text.cfg
-  !insertmacro ReplaceInFile "initrd=/casper" "cdrom-detect/try-usb=true noprompt floppy.allowed_drive_mask=0 ignore_uuid initrd=/casper" "all" "all" "$DestDisk\isolinux\text.cfg"  
+  !insertmacro ReplaceInFile "initrd=/casper" "cdrom-detect/try-usb=true noprompt floppy.allowed_drive_mask=0 ignore_AUId initrd=/casper" "all" "all" "$DestDisk\isolinux\text.cfg"
   ${ElseIf} ${FileExists} "$DestDisk\isolinux\isolinux.cfg" ; Rename the following for isolinux.cfg
-  !insertmacro ReplaceInFile "initrd=/casper" "cdrom-detect/try-usb=true noprompt floppy.allowed_drive_mask=0 ignore_uuid initrd=/casper" "all" "all" "$DestDisk\isolinux\isolinux.cfg"     
+  !insertmacro ReplaceInFile "initrd=/casper" "cdrom-detect/try-usb=true noprompt floppy.allowed_drive_mask=0 ignore_AUId initrd=/casper" "all" "all" "$DestDisk\isolinux\isolinux.cfg"
   ${EndIf}
   ${If} ${FileExists} "$DestDisk\boot\grub\loopback.cfg" ; Rename the following for grub loopback.cfg
-  !insertmacro ReplaceInFile "boot=casper" "cdrom-detect/try-usb=true noprompt floppy.allowed_drive_mask=0 ignore_uuid boot=NULL" "all" "all" "$DestDisk\boot\grub\loopback.cfg"  
+  !insertmacro ReplaceInFile "boot=casper" "cdrom-detect/try-usb=true noprompt floppy.allowed_drive_mask=0 ignore_AUId boot=NULL" "all" "all" "$DestDisk\boot\grub\loopback.cfg"
   !insertmacro ReplaceInFile "boot=NULL" "boot=casper" "all" "all" "$DestDisk\boot\grub\loopback.cfg"  
   ${EndIf}
   ${If} ${FileExists} "$DestDisk\boot\grub\grub.cfg" ; Rename the following for grub.cfg
-  !insertmacro ReplaceInFile "boot=casper" "cdrom-detect/try-usb=true noprompt floppy.allowed_drive_mask=0 ignore_uuid boot=NULL" "all" "all" "$DestDisk\boot\grub\grub.cfg"  
+  !insertmacro ReplaceInFile "boot=casper" "cdrom-detect/try-usb=true noprompt floppy.allowed_drive_mask=0 ignore_AUId boot=NULL" "all" "all" "$DestDisk\boot\grub\grub.cfg"
   !insertmacro ReplaceInFile "boot=NULL" "boot=casper" "all" "all" "$DestDisk\boot\grub\grub.cfg"  
   ${EndIf}  
   
@@ -174,19 +174,19 @@ FunctionEnd
 ; For Fedora Based and derivatives
    ${If} ${FileExists} "$DestDisk\isolinux\isolinux.cfg" 
    ${AndIf} ${FileExists} "$DestDisk\LiveOS\livecd-iso-to-disk"  ; Probably Fedora based
-   !insertmacro ReplaceInFile "root=live:CDLABEL=" "root=live:LABEL=UUI NULL=" "all" "all" "$DestDisk\isolinux\isolinux.cfg"   
+   !insertmacro ReplaceInFile "root=live:CDLABEL=" "root=live:LABEL=AUI NULL=" "all" "all" "$DestDisk\isolinux\isolinux.cfg"
    ${EndIf} 
    
 ; Mandriva\CentOS
    ${If} ${FileExists} "$DestDisk\isolinux\isolinux.cfg"
    ${AndIf} ${FileExists} "$DestDisk\LiveOS\*.*"
-   !insertmacro ReplaceInFile "root=live:CDLABEL=" "root=live:LABEL=UUI NULL=" "all" "all" "$DestDisk\isolinux\isolinux.cfg"    
+   !insertmacro ReplaceInFile "root=live:CDLABEL=" "root=live:LABEL=AUI NULL=" "all" "all" "$DestDisk\isolinux\isolinux.cfg"
    ${EndIf}    
 
 ; CentOS EFI   
    ${If} $DistroName == "Centos"   
    ${AndIf} ${FileExists} "$DestDisk\EFI\BOOT\grub.cfg"
-   !insertmacro ReplaceInFile "root=live:LABEL=Cent" "root=live:LABEL=UUI NULL=" "all" "all" "$DestDisk\EFI\BOOT\grub.cfg" 
+   !insertmacro ReplaceInFile "root=live:LABEL=Cent" "root=live:LABEL=AUI NULL=" "all" "all" "$DestDisk\EFI\BOOT\grub.cfg"
    !insertmacro ReplaceInFile "set default=$\"1$\"" "set default=$\"0$\"" "all" "all" "$DestDisk\EFI\BOOT\grub.cfg"  
    ${EndIf}      
 
@@ -206,18 +206,18 @@ FunctionEnd
 
 ; Archlinux
    ${If} ${FileExists} "$DestDisk\arch\boot\syslinux\archiso.cfg"     
-   !insertmacro ReplaceInFile "archisolabel=" "archisolabel=UUI NULL=" "all" "all" "$DestDisk\arch\boot\syslinux\archiso_pxe64.cfg"         
-   !insertmacro ReplaceInFile "archisolabel=" "archisolabel=UUI NULL=" "all" "all" "$DestDisk\arch\boot\syslinux\archiso_pxe32.cfg"  
-   !insertmacro ReplaceInFile "archisolabel=" "archisolabel=UUI NULL=" "all" "all" "$DestDisk\arch\boot\syslinux\archiso_sys64.cfg"          
-   !insertmacro ReplaceInFile "archisolabel=" "archisolabel=UUI NULL=" "all" "all" "$DestDisk\arch\boot\syslinux\archiso_sys32.cfg"  
-   !insertmacro ReplaceInFile "archisolabel=" "archisolabel=UUI NULL=" "all" "all" "$DestDisk\loader\entries\archiso-x86_64.conf"  
-   !insertmacro ReplaceInFile "archisolabel=" "archisolabel=UUI NULL=" "all" "all" "$DestDisk\loader\entries\archiso_x86_64.conf"     
+   !insertmacro ReplaceInFile "archisolabel=" "archisolabel=AUI NULL=" "all" "all" "$DestDisk\arch\boot\syslinux\archiso_pxe64.cfg"
+   !insertmacro ReplaceInFile "archisolabel=" "archisolabel=AUI NULL=" "all" "all" "$DestDisk\arch\boot\syslinux\archiso_pxe32.cfg"
+   !insertmacro ReplaceInFile "archisolabel=" "archisolabel=AUI NULL=" "all" "all" "$DestDisk\arch\boot\syslinux\archiso_sys64.cfg"
+   !insertmacro ReplaceInFile "archisolabel=" "archisolabel=AUI NULL=" "all" "all" "$DestDisk\arch\boot\syslinux\archiso_sys32.cfg"
+   !insertmacro ReplaceInFile "archisolabel=" "archisolabel=AUI NULL=" "all" "all" "$DestDisk\loader\entries\archiso-x86_64.conf"
+   !insertmacro ReplaceInFile "archisolabel=" "archisolabel=AUI NULL=" "all" "all" "$DestDisk\loader\entries\archiso_x86_64.conf"
    ${EndIf}  
 ; Archbang
    ${If} ${FileExists} "$DestDisk\arch\boot\syslinux\syslinux.cfg"     
-   !insertmacro ReplaceInFile "archisolabel=" "archisolabel=UUI NULL=" "all" "all" "$DestDisk\arch\boot\syslinux\syslinux.cfg"         
-   !insertmacro ReplaceInFile "archisolabel=" "archisolabel=UUI NULL=" "all" "all" "$DestDisk\loader\entries\archiso-x86_64.conf"
-   !insertmacro ReplaceInFile "archisolabel=" "archisolabel=UUI NULL=" "all" "all" "$DestDisk\loader\entries\archiso_x86_64.conf"    
+   !insertmacro ReplaceInFile "archisolabel=" "archisolabel=AUI NULL=" "all" "all" "$DestDisk\arch\boot\syslinux\syslinux.cfg"
+   !insertmacro ReplaceInFile "archisolabel=" "archisolabel=AUI NULL=" "all" "all" "$DestDisk\loader\entries\archiso-x86_64.conf"
+   !insertmacro ReplaceInFile "archisolabel=" "archisolabel=AUI NULL=" "all" "all" "$DestDisk\loader\entries\archiso_x86_64.conf"
    ${EndIf}  
 
 ; Knoppix
@@ -260,13 +260,13 @@ FunctionEnd
   ${If} $DistroName == "Kaspersky Rescue Disk"   
   StrCpy $ConfigFile == "syslinux.cfg" ; Make sure it isn't NULL
   File /oname=$PLUGINSDIR\kav.cfg "texts\kav.cfg"  
-  CopyFiles "$PLUGINSDIR\kav.cfg" "$DestDisk\uui\syslinux.cfg"   
+  CopyFiles "$PLUGINSDIR\kav.cfg" "$DestDisk\AUI\syslinux.cfg"
   ${EndIf}    
   
 ; KTrinity Rescue Kit
   ${If} $DistroName == "Trinity Rescue Kit"   
    ${AndIf} ${FileExists} "$DestDisk\syslinux.cfg"       
-   !insertmacro ReplaceInFile "append initrd=initrd.trk" "append vollabel=UUI initrd=initrd.trk" "all" "all" "$DestDisk\syslinux.cfg"     
+   !insertmacro ReplaceInFile "append initrd=initrd.trk" "append vollabel=AUI initrd=initrd.trk" "all" "all" "$DestDisk\syslinux.cfg"
   ${EndIf} 
   
 ; BlehOS  
@@ -278,7 +278,7 @@ FunctionEnd
   ${If} $DistroName == "Hiren's Boot CD" 
   StrCpy $ConfigFile == "syslinux.cfg" ; Make sure it isn't NULL  
   File /oname=$PLUGINSDIR\hirens.cfg "texts\hirens.cfg"
-  CopyFiles "$PLUGINSDIR\hirens.cfg" "$DestDisk\uui\syslinux.cfg"     
+  CopyFiles "$PLUGINSDIR\hirens.cfg" "$DestDisk\AUI\syslinux.cfg"
   ${EndIf}
  
 ; Kon-Boot 
@@ -288,7 +288,7 @@ FunctionEnd
   File /oname=$PLUGINSDIR\memdisk "memdisk"  
   CopyFiles "$PLUGINSDIR\chain.c32" "$DestDisk\chain.c32" 
   CopyFiles "$PLUGINSDIR\vesamenu.c32" "$DestDisk\vesamenu.c32"    
-  CopyFiles "$PLUGINSDIR\konboot.cfg" "$DestDisk\uui\syslinux.cfg"  
+  CopyFiles "$PLUGINSDIR\konboot.cfg" "$DestDisk\AUI\syslinux.cfg"
   CopyFiles "$PLUGINSDIR\memdisk" "$DestDisk\memdisk"     
   ${EndIf}
    
@@ -298,7 +298,7 @@ FunctionEnd
   File /oname=$PLUGINSDIR\memdisk "memdisk"  
   CopyFiles "$PLUGINSDIR\chain.c32" "$DestDisk\chain.c32" 
   CopyFiles "$PLUGINSDIR\vesamenu.c32" "$DestDisk\vesamenu.c32"    
-  CopyFiles "$PLUGINSDIR\konboot.cfg" "$DestDisk\uui\syslinux.cfg"  
+  CopyFiles "$PLUGINSDIR\konboot.cfg" "$DestDisk\AUI\syslinux.cfg"
   CopyFiles "$PLUGINSDIR\memdisk" "$DestDisk\memdisk"     
   ${EndIf}  
   
@@ -306,7 +306,7 @@ FunctionEnd
   ${If} $DistroName == "OpenSUSE 32bit"
   ${OrIf} $DistroName == "OpenSUSE 64bit"    
   !insertmacro ReplaceInFile "append initrd=initrd" "append initrd=NULL" "all" "all" "$DestDisk\$CopyPath\$ConfigFile"
-  !insertmacro ReplaceInFile "NULL" "initrd isofrom=/dev/disk/by-label/UUI:/$JustISO isofrom_device=/dev/disk/by-label/UUI isofrom_system=/$JustISO loader=syslinux" "all" "all" "$DestDisk\$CopyPath\$ConfigFile"    
+  !insertmacro ReplaceInFile "NULL" "initrd isofrom=/dev/disk/by-label/AUI:/$JustISO isofrom_device=/dev/disk/by-label/AUI isofrom_system=/$JustISO loader=syslinux" "all" "all" "$DestDisk\$CopyPath\$ConfigFile"
   ${EndIf}   
 
 ; Simply Mepis and misc GRUB oriented
@@ -315,8 +315,8 @@ FunctionEnd
   StrCpy $ConfigFile == "syslinux.cfg" ; Make sure it isn't NULL    
   File /oname=$PLUGINSDIR\grub.cfg "texts\grub.cfg"
   File /oname=$PLUGINSDIR\grldr "grldr"  
-  CopyFiles "$PLUGINSDIR\grldr" "$DestDisk\uui\grldr"   
-  CopyFiles "$PLUGINSDIR\grub.cfg" "$DestDisk\uui\syslinux.cfg"     
+  CopyFiles "$PLUGINSDIR\grldr" "$DestDisk\AUI\grldr"
+  CopyFiles "$PLUGINSDIR\grub.cfg" "$DestDisk\AUI\syslinux.cfg"
   ${EndIf} 
 
 ; Falcon 4 and misc GRUB oriented
@@ -325,7 +325,7 @@ FunctionEnd
   ${AndIf} ${FileExists} "$DestDisk\grldr"  
   StrCpy $ConfigFile == "syslinux.cfg" ; Make sure it isn't NULL     
   File /oname=$PLUGINSDIR\grubroot.cfg "texts\grubroot.cfg"
-  CopyFiles "$PLUGINSDIR\grubroot.cfg" "$DestDisk\uui\syslinux.cfg"
+  CopyFiles "$PLUGINSDIR\grubroot.cfg" "$DestDisk\AUI\syslinux.cfg"
   ${EndIf}  
   
 ; Eset SysRescue Live  
@@ -339,9 +339,9 @@ FunctionEnd
    ;${If} ${FileExists} "$DestDisk\isolinux\live.cfg" 
    ;${AndIf} ${FileExists} "$DestDisk\isolinux\live486.cfg" 
    ;${AndIf} ${FileExists} "$DestDisk\isolinux\live686.cfg"    
-   ;!insertmacro ReplaceInFile "live-media=removable" "root=LABEL=UUI live-media-path=/live" "all" "all" "$DestDisk\isolinux\live.cfg" 
-   ;!insertmacro ReplaceInFile "live-media=removable" "root=LABEL=UUI live-media-path=/live" "all" "all" "$DestDisk\isolinux\live486.cfg"   
-   ;!insertmacro ReplaceInFile "live-media=removable" "root=LABEL=UUI live-media-path=/live" "all" "all" "$DestDisk\isolinux\live686.cfg"   
+   ;!insertmacro ReplaceInFile "live-media=removable" "root=LABEL=AUI live-media-path=/live" "all" "all" "$DestDisk\isolinux\live.cfg"
+   ;!insertmacro ReplaceInFile "live-media=removable" "root=LABEL=AUI live-media-path=/live" "all" "all" "$DestDisk\isolinux\live486.cfg"
+   ;!insertmacro ReplaceInFile "live-media=removable" "root=LABEL=AUI live-media-path=/live" "all" "all" "$DestDisk\isolinux\live686.cfg"
    ;${EndIf}    
   
   ${If} ${FileExists} "$DestDisk\boot\grub\mbrid" ; For OpenSuSe like compilations!
@@ -467,7 +467,7 @@ FunctionEnd
   ${OrIf} $DistroName == "Windows 10 Installer"    
   StrCpy $ConfigFile == "syslinux.cfg" ; Make sure it isn't NULL      
   File /oname=$PLUGINSDIR\win7.cfg "texts\win7.cfg"
-  CopyFiles "$PLUGINSDIR\win7.cfg" "$DestDisk\uui\syslinux.cfg"
+  CopyFiles "$PLUGINSDIR\win7.cfg" "$DestDisk\AUI\syslinux.cfg"
   CopyFiles "$PLUGINSDIR\chain.c32" "$DestDisk\chain.c32"  
   
   ${ElseIf} $DistroName == "Try Unlisted Linux ISO"  
@@ -492,7 +492,7 @@ Function RandomISO
 
 FunctionEnd
 
-Function OldSysFix ; fix to force use of UUI packaged version of syslinux... 
+Function OldSysFix ; fix to force use of AUI packaged version of syslinux...
  ${IfNot} ${FileExists} "$DestDisk\utils\win32\syslinux.exe"
   ${AndIf} $DistroName != "ArchLinux"
     ${AndIf} $DistroName != "ArchBang"

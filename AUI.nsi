@@ -1,3 +1,6 @@
+#===========================================================
+#
+#===========================================================
 /*
   This file is part of Universal USB Installer (UUI).
  
@@ -24,90 +27,91 @@
   NSIS Installer © Contributors http://nsis.sourceforge.net - This script was created using NSIS, you must install and use NSIS to compile this script. http://nsis.sourceforge.net/Download
   Universal USB Installer may contain remnants of Cedric Tissieres's Tazusb.exe for Slitaz (slitaz@objectif-securite.ch), as his work was used as a base for singular distro installers that preceded UUI.
  */
- 
-!execute "Resources\Scripts\Build Counter v1.0.exe"
+
+#===========================================================
+# INCLUDES
+#===========================================================
+
+            !execute "Resources\Scripts\Build Counter v1.0.exe"
          
-!addincludedir "Resources\Scripts"
-!include       "Resources\Scripts\Defines.nsh"
+            !addincludedir "Resources\Scripts"
+            !include       "Resources\Scripts\Defines.nsh"
 
-; MoreInfo Plugin - Adds Version Tab fields to Properties. Plugin created by onad http://nsis.sourceforge.net/MoreInfo_plug-in
-VIProductVersion "${VERSION}"
-VIAddVersionKey CompanyName "pendrivelinux.com"
-VIAddVersionKey LegalCopyright "Copyright ©2009-2013 Lance Pendrivelinux.com"
-VIAddVersionKey FileVersion "${VERSION}"
-VIAddVersionKey FileDescription "Universal Linux UFD Creator"
-VIAddVersionKey License "GPL Version 2"
+            ; MoreInfo Plugin - Adds Version Tab fields to Properties. Plugin created by onad http://nsis.sourceforge.net/MoreInfo_plug-in
+            VIProductVersion "${VERSION}"
+            VIAddVersionKey CompanyName "pendrivelinux.com"
+            VIAddVersionKey LegalCopyright "Copyright ©2009-2013 Lance Pendrivelinux.com"
+            VIAddVersionKey FileVersion "${VERSION}"
+            VIAddVersionKey FileDescription "Universal Linux UFD Creator"
+            VIAddVersionKey License "GPL Version 2"
 
-Name "${NAME} ${VERSION}"
-Caption "${NAME} ${VERSION} - ${RODRI_WEBSITE}"
-OutFile "C:\Users\Rodrigo\Desktop\${FILENAME}-${VERSION}.exe"
-RequestExecutionLevel admin ;highest
-SetCompressor /SOLID /FINAL LZMA
-CRCCheck On
-XPStyle on
-ShowInstDetails show
-BrandingText "${NAME} ${RODRI_WEBSITE}"
-CompletedText "Installation Done, Process is Complete!"
-InstallButtonText Create
-
-!include WordFunc.nsh
-!include nsDialogs.nsh
-!include MUI2.nsh
-!include FileFunc.nsh
-!include LogicLib.nsh
-!include FileNames.nsh ; FileNames Macro Script created by Lance http://www.pendrivelinux.com
-!include variables.nsh
+            Name "${NAME} ${VERSION}"
+            Caption "${NAME} ${VERSION} - ${RODRI_WEBSITE}"
+            OutFile "C:\Users\Rodrigo\Desktop\${FILENAME}-${VERSION}.exe"
+            RequestExecutionLevel admin ;highest
+            SetCompressor /SOLID /FINAL LZMA
+            CRCCheck On
+            XPStyle on
+            ShowInstDetails show
+            BrandingText "${NAME} ${RODRI_WEBSITE}"
+            CompletedText "Installation Done, Process is Complete!"
+            InstallButtonText $(Create_Button)
 
 
-!include DiskVoodoo.nsh ; DiskVoodoo Script created by Lance http://www.pendrivelinux.com
+#===========================================================
+#
+#===========================================================
 
-; Interface settings
-!define MUI_FINISHPAGE_NOAUTOCLOSE
-!define MUI_HEADERIMAGE
-!define MUI_HEADERIMAGE_BITMAP "Resources\images\usb-logo-nsis.bmp"
-!define MUI_HEADERIMAGE_BITMAP_NOSTRETCH
-!define MUI_HEADERIMAGE_RIGHT
+            !include WordFunc.nsh
+            !include nsDialogs.nsh
+            !include MUI2.nsh
+            !include FileFunc.nsh
+            !include LogicLib.nsh
+            !include FileNames.nsh ; FileNames Macro Script created by Lance http://www.pendrivelinux.com
+            !include variables.nsh
 
-; License Agreement Page
-!define MUI_TEXT_LICENSE_SUBTITLE $(License_Subtitle)
-!define MUI_LICENSEPAGE_TEXT_TOP $(License_Text_Top)
-!define MUI_LICENSEPAGE_TEXT_BOTTOM $(License_Text_Bottom)
-!insertmacro MUI_PAGE_LICENSE "Uni-USB-Installer-Copying.txt"
+            !include DiskVoodoo.nsh ; DiskVoodoo Script created by Lance http://www.pendrivelinux.com
 
-; Distro Selection Page
-Page custom SelectionsPage
 
-; Install Files Page
-!define MUI_INSTFILESPAGE_COLORS "00FF00 000000" ;Green and Black
-!define MUI_TEXT_INSTALLING_TITLE $(Install_Title)
-!define MUI_TEXT_INSTALLING_SUBTITLE $(Install_SubTitle)
-!define MUI_TEXT_FINISH_SUBTITLE $(Install_Finish_Sucess)
-!insertmacro MUI_PAGE_INSTFILES
+#===========================================================
+#
+#===========================================================
 
-; English Language files
-!insertmacro MUI_LANGUAGE "English" ; first language is the default language
-LangString License_Subtitle ${LANG_ENGLISH} "Please review the license terms before proceeding"
-LangString License_Text_Top ${LANG_ENGLISH} "The software within this program falls under the following Licenses."
-LangString License_Text_Bottom ${LANG_ENGLISH} "You must accept the terms of this License agreement to run this ${NAME}. If you agree, Click I Agree to Continue."
-LangString SelectDist_Title ${LANG_ENGLISH} "Setup your Selections Page"
-LangString SelectDist_Subtitle ${LANG_ENGLISH} "Choose a Linux Distro, ISO/ZIP file and, your USB Flash Drive."
-LangString Distro_Text ${LANG_ENGLISH} "Step 1: Select a Linux Distribution from the dropdown to put on your USB"
-LangString IsoPage_Title ${LANG_ENGLISH} "Select Your $FileFormat"
-LangString IsoPage_Text ${LANG_ENGLISH} "Step 2: Select the $FileFormat (Name MUST BE the same as above)."
-LangString IsoFile ${LANG_ENGLISH} "$FileFormat file|$ISOFileName" ;$ISOFileName variable previously *.iso
-LangString DrivePage_Text ${LANG_ENGLISH} "Step 3: Select your USB Flash Drive Letter Only"
-LangString Casper_Text ${LANG_ENGLISH} "Step 4: Set a Persistent file size for storing changes (Optional)."
-LangString Extract ${LANG_ENGLISH} "Extracting the $FileFormat: The progress bar will not move until finished. Please be patient..."
-LangString CreateSysConfig ${LANG_ENGLISH} "Editing Configuration Files"
-LangString ExecuteSyslinux ${LANG_ENGLISH} "Executing syslinux on $DestDisk"
-LangString SkipSyslinux ${LANG_ENGLISH} "Good Syslinux Exists..."
-LangString WarningSyslinux ${LANG_ENGLISH} "An error ($R8) occurred while executing syslinux.$\r$\nYour USB drive won't be bootable..."
-LangString Install_Title ${LANG_ENGLISH} "Installing $DistroName"
-LangString Install_SubTitle ${LANG_ENGLISH} "Please wait while ${NAME} installs $DistroName on $DestDisk"
-LangString Install_Finish_Sucess ${LANG_ENGLISH} "${NAME} sucessfully installed $DistroName on $DestDisk"
+            ; Interface settings
+            !define MUI_FINISHPAGE_NOAUTOCLOSE
+            !define MUI_HEADERIMAGE
+            !define MUI_HEADERIMAGE_BITMAP "Resources\images\usb-logo-nsis.bmp"
+            !define MUI_HEADERIMAGE_BITMAP_NOSTRETCH
+            !define MUI_HEADERIMAGE_RIGHT
 
-!include DistroList.nsh ; DistroList Macro Script created by Lance http://www.pendrivelinux.com
-!include FileManipulation.nsh ; Text File Manipulation
+            ; License Agreement Page
+            !define MUI_TEXT_LICENSE_SUBTITLE $(License_Subtitle)
+            !define MUI_LICENSEPAGE_TEXT_TOP $(License_Text_Top)
+            !define MUI_LICENSEPAGE_TEXT_BOTTOM $(License_Text_Bottom)
+            !insertmacro MUI_PAGE_LICENSE "Uni-USB-Installer-Copying.txt"
+
+            ; Distro Selection Page
+            Page custom SelectionsPage
+
+            ; Install Files Page
+            ;!define MUI_INSTFILESPAGE_COLORS "00FF00 000000" ;Green and Black
+            !define MUI_TEXT_INSTALLING_TITLE $(Install_Title)
+            !define MUI_TEXT_INSTALLING_SUBTITLE $(Install_SubTitle)
+            !define MUI_TEXT_FINISH_SUBTITLE $(Install_Finish_Sucess)
+            !insertmacro MUI_PAGE_INSTFILES
+
+#===========================================================
+#
+#===========================================================
+
+            ; English Language files
+            !insertmacro MUI_LANGUAGE "English" ; first language is the default language
+            !include "Language_English.nsh"
+            !insertmacro MUI_LANGUAGE "SpanishInternational" ; first language is the default language
+            !include "Language_SpanishInternational.nsh"
+
+            !include DistroList.nsh ; DistroList Macro Script created by Lance http://www.pendrivelinux.com
+            !include FileManipulation.nsh ; Text File Manipulation
 
 Function SelectionsPage
 !insertmacro MUI_HEADER_TEXT $(SelectDist_Title) $(SelectDist_Subtitle) 
@@ -126,23 +130,23 @@ Function SelectionsPage
   ${NSD_CB_SelectString} $Distro $DistroName  
   
 ; ISO Download Option
-  ${NSD_CreateCheckBox} 50% 20 50% 15 "Download Link"
+  ${NSD_CreateCheckBox} 50% 20 50% 15 "$(SELPAGE_DOWNLOAD_LINK)"
   Pop $DownloadISO
   ${NSD_OnClick} $DownloadISO DownloadIt 
 
   ;SetCtlColors $DownloadDone /BRANDING 009900  
   
 ; Clickable Link to Distribution Homepage  
-  ${NSD_CreateLink} 55% 35 45% 15 "Visit the $OfficialName HomePage"
+  ${NSD_CreateLink} 55% 35 45% 15 "$(SELPAGE_VISIT_HOMEPAGE)"
   Pop $DistroLink
   ${NSD_OnClick} $DistroLink onClickLinuxSite 
   
 ; ISO Selection Starts  
   ${NSD_CreateLabel} 0 50 100% 15 $(IsoPage_Text)
   Pop $LabelISOSelection
-  ${NSD_CreateText} 0 70 83% 20 "Browse to and select the $FileFormat"
+  ${NSD_CreateText} 0 70 83% 20 "$(SELPAGE_BROWSEANDSELECT)"
   Pop $ISOFileTxt 
-  ${NSD_CreateBrowseButton} 85% 70 60 20 "Browse"
+  ${NSD_CreateBrowseButton} 85% 70 60 20 "$(SELPAGE_BROWSE_BUTTON)"
   Pop $ISOSelection 
   ${NSD_OnClick} $ISOSelection ISOBrowse  
   
@@ -155,7 +159,7 @@ Function SelectionsPage
   ${NSD_OnChange} $DestDriveTxt OnSelectDrive
   
 ; All Drives Option
-  ${NSD_CreateCheckBox} 55% 100 45% 15 "Show all Drives (USE WITH CAUTION)"
+  ${NSD_CreateCheckBox} 55% 100 45% 15 "$(SELPAGE_SHOWALLDRIVES)"
   Pop $AllDriveOption
   ${NSD_OnClick} $AllDriveOption ListAllDrives  
   
@@ -164,7 +168,7 @@ Function SelectionsPage
   ${EndIf}    
   
 ; Format Drive Option
-  ${NSD_CreateCheckBox} 35% 123 50% 15 "Format Drive as Fat32" ; was 20% 123 60% 15
+  ${NSD_CreateCheckBox} 35% 123 50% 15 "$(SELPAGE_FORMATFAT)" ; was 20% 123 60% 15
   Pop $Format
   ${NSD_OnClick} $Format FormatIt   
 ; Casper-RW Selection Starts
@@ -197,7 +201,7 @@ Function SelectionsPage
   ; nsDialogs::OnClick $Donate $DonateHandle    
 
 ; Add Help Link
-  ${NSD_CreateLink} 0 210 100% 14 "Click HERE to Visit the Universal USB Installer Page for additional HELP"
+  ${NSD_CreateLink} 0 210 100% 14 "$(SELPAGE_VISITHELP)"
   Pop $Link
   ${NSD_OnClick} $Link onClickMyLink   
   
@@ -242,11 +246,11 @@ Function DownloadIt ; Set Download Option
   ${NSD_GetState} $DownloadISO $DownloadMe
   ${If} $DownloadMe == ${BST_CHECKED}
   ${NSD_Check} $DownloadISO
-  ${NSD_SetText} $DownloadISO "Download Link Opened"
+  ${NSD_SetText} $DownloadISO "$(DOWNIT_DOWNLINKOP)"
   Call DownloadLinks
   ${ElseIf} $DownloadMe == ${BST_UNCHECKED}
   ${NSD_Uncheck} $DownloadISO 
-  ${NSD_SetText} $DownloadISO "Download Link"  
+  ${NSD_SetText} $DownloadISO "$(DOWNIT_DOWNLINK)"
   ${EndIf}  
 FunctionEnd
 
@@ -255,11 +259,11 @@ Function ListAllDrives ; Set to Display All Drives
   ${NSD_GetState} $AllDriveOption $DisplayAll
   ${If} $DisplayAll == ${BST_CHECKED}
   ${NSD_Check} $AllDriveOption
-  ${NSD_SetText} $AllDriveOption "Now Showing All Drives (BE CAREFUL)" 
+  ${NSD_SetText} $AllDriveOption "$(LISTDRIVES_NOWSHOWING)"
     ${GetDrives} "ALL" DrivesList ; All Drives Listed  
   ${ElseIf} $DisplayAll == ${BST_UNCHECKED}
   ${NSD_Uncheck} $AllDriveOption
-  ${NSD_SetText} $AllDriveOption "Show all Drives (USE WITH CAUTION)"  
+  ${NSD_SetText} $AllDriveOption "$(LISTDRIVES_SHOWALL)"
 	${GetDrives} "FDD" DrivesList ; FDD+HDD reduce to FDD for removable media only
   ${EndIf}
 FunctionEnd
@@ -287,10 +291,10 @@ Function FormatIt ; Set Format Option
   ${If} $FormatMe == ${BST_CHECKED}
   ${NSD_Check} $Format
   StrCpy $FormatMe "Yes"
-  ${NSD_SetText} $Format "We will format $JustDrive Drive as Fat32."
+  ${NSD_SetText} $Format "$(FORMATIT_WEWILLFORMAT)"
   ${ElseIf} $FormatMe == ${BST_UNCHECKED}
   ${NSD_Uncheck} $Format 
-  ${NSD_SetText} $Format "Format $JustDrive Drive (Erases Content)"  
+  ${NSD_SetText} $Format "$(FORMATIT_FORMATJUST)"
   ${EndIf}  
   Call SetSpace
 FunctionEnd
@@ -320,7 +324,7 @@ Function EnableNext ; Enable Install Button
   ShowWindow $CasperSelection 1
   ShowWindow $CasperSlider 1
   ShowWindow $SlideSpot 1
-  ${NSD_SetText} $Format "Format $JustDrive Drive (Erases Content)"  
+  ${NSD_SetText} $Format "$(ENABLENEXT_FORMATJUST)"
 	
 ; Or if not using Casper Persistence...  
   ${ElseIf} $ISOFile != ""
@@ -328,7 +332,7 @@ Function EnableNext ; Enable Install Button
   ShowWindow $CasperSelection 0
   ShowWindow $CasperSlider 0 
   ShowWindow $SlideSpot 0
-  ${NSD_SetText} $Format "Format $JustDrive Drive (Erases Content)" 
+  ${NSD_SetText} $Format "$(ENABLENEXT_FORMATJUST)"
   ${EndIf}  
   
   ${If} $ISOFileName != "" 
@@ -355,11 +359,11 @@ Function DownloadLinks
 MessageBox MB_YESNO|MB_ICONQUESTION "Launch the $DistroName Download Link?$\r$\nLet the download finish before moving to step 2." IDYES DownloadIt IDNO Skip
   Skip: ; Reset Download Checkbox Options 
   ${NSD_Uncheck} $DownloadISO 
-  ${NSD_SetText} $DownloadISO "Download Link"  
+  ${NSD_SetText} $DownloadISO "$(DOWNLOADLINKS_DL)"
   EnableWindow $DownloadISO 1
   Goto end
   DownloadIt:
-  ${NSD_SetText} $LabelISOSelection "Step 2: Once your download has finished, Browse to and select the ISO."  
+  ${NSD_SetText} $LabelISOSelection "$(DOWNLOADLINKS_STEP2)"
   EnableWindow $DownloadISO 0
   ExecShell "open" "$DownLink"  
   EnableWindow $DownloadISO 1	
@@ -386,7 +390,7 @@ Function OnSelectDistro
   ShowWindow $DownloadISO 1 
   ${EndIf}  
 	
-  ${NSD_SetText} $DistroLink "Visit the $OfficialName Home Page" 
+  ${NSD_SetText} $DistroLink "$(ONSELDISTRO_VISITHOME)"
   ShowWindow $DistroLink 0
   ${If} $OfficialName == ""
   ShowWindow $DistroLink 0
@@ -394,8 +398,8 @@ Function OnSelectDistro
   ShowWindow $DistroLink 1
   ${EndIf}  
 	
-  ${NSD_SetText} $LabelISOSelection "Step 2: Select your $ISOFileName"
-  ${NSD_SetText} $ISOFileTxt "Browse to your $ISOFileName  -->" 
+  ${NSD_SetText} $LabelISOSelection "$(ONSELDISTRO_STEP2)"
+  ${NSD_SetText} $ISOFileTxt "$(ONSELDISTRO_BROWSE)"
   SetCtlColors $ISOFileTxt FF0000 FFFFFF  
   StrCpy $ISOTest "" ; Set to null until a new ISO selection is made 
 
@@ -417,11 +421,11 @@ Function OnSelectDistro
   ${GetBaseName} "$JustISO" $JustISOName
   ${GetParent} "$TheISO" $JustISOPath  
   EnableWindow $DownloadISO 0
-  ${NSD_SetText} $DownloadISO "We Found and Selected the $FileFormat."    
+  ${NSD_SetText} $DownloadISO "$(ONSELDISTRO_WEFOUND)"
   EnableWindow $ISOSelection 0 
   SetCtlColors $ISOFileTxt 009900 FFFFFF  
   ${NSD_SetText} $ISOFileTxt $ISOFile 
-  ${NSD_SetText} $LabelISOSelection "Step 2 DONE: $ISOFileName Found and Selected!"  
+  ${NSD_SetText} $LabelISOSelection "$(ONSELDISTRO_STEP2DONE)"
   StrCpy $ISOTest "$TheISO" ; Populate ISOTest so we can enable Next    
   Call EnableNext 
 
@@ -429,17 +433,17 @@ Function OnSelectDistro
   EnableWindow $DownloadISO 1
   EnableWindow $ISOSelection 1
   ${NSD_Uncheck} $DownloadISO  
-  ${NSD_SetText} $DownloadISO "Download Link"       
+  ${NSD_SetText} $DownloadISO "$(ONSELDISTRO_DL)"
   SetCtlColors $ISOFileTxt FF9B00 FFFFFF  
-  ${NSD_SetText} $ISOFileTxt "Browse to and select your $ISOFileName" 
-  ${NSD_SetText} $LabelISOSelection "Step 2 PENDING: Browse to your $ISOFileName"      
+  ${NSD_SetText} $ISOFileTxt "$(ONSELDISTRO_BROWSE2)"
+  ${NSD_SetText} $LabelISOSelection "$(ONSELDISTRO_STEP2PEND)"
   Call EnableNext
   
  ${Else}
   Call EnableNext
   EnableWindow $DownloadISO 1
   ${NSD_Uncheck} $DownloadISO  
-  ${NSD_SetText} $DownloadISO "Download Link"   
+  ${NSD_SetText} $DownloadISO "$(ONSELDISTRO_DL)"
  ${EndIf}  
 FunctionEnd 
 
@@ -450,7 +454,7 @@ Function ISOBrowse
  ${NSD_SetText} $ISOFileTxt $TheISO
  SetCtlColors $ISOFileTxt 009900 FFFFFF
  EnableWindow $DownloadISO 0
- ${NSD_SetText} $DownloadISO "Local $FileFormat Selected." 
+ ${NSD_SetText} $DownloadISO "$(ISO_BROWSE_LOCAL)"
  StrCpy $ISOTest "$TheISO" ; Populate ISOTest so we can enable Next 
  StrCpy $ISOFile "$TheISO" 
  ${GetFileName} "$TheISO" $JustISO
@@ -576,18 +580,18 @@ Function DoSyslinux ; Install Syslinux on chosen USB
   File /oname=$PLUGINSDIR\vesamenu.c32 "Binary\vesamenu.c32"
   File /oname=$PLUGINSDIR\mbrid "Binary\mbrid"
 
-  CreateDirectory "$DestDisk\uui" ; Create the uui directory
-  CopyFiles "$PLUGINSDIR\syslinux.cfg" "$DestDisk\uui\syslinux.cfg" ; Copy syslinux.cfg to uui directory... we will redirect syslinux from here.
+  CreateDirectory "$DestDisk\AUI" ; Create the AUI directory
+  CopyFiles "$PLUGINSDIR\syslinux.cfg" "$DestDisk\AUI\syslinux.cfg" ; Copy syslinux.cfg to AUI directory... we will redirect syslinux from here.
   DetailPrint $(ExecuteSyslinux)
   ;${If} $DistroName == "Tails"
   ;${OrIf} $DistroName == "Clonezilla"  
    ; Do nothing here... we will use the Newer Syslinux version packed with the ISO
   ${If} $DistroName == "ArchLinux"
   ${OrIf} $DistroName == "Archbang"
-  ExecWait '$PLUGINSDIR\syslinux603.exe -maf -d /uui $DestDisk' $R8 ; directory path for syslinux /uui   
+  ExecWait '$PLUGINSDIR\syslinux603.exe -maf -d /AUI $DestDisk' $R8 ; directory path for syslinux /AUI
   DetailPrint "Syslinux Errors $R8"
   ${Else}
-  ExecWait '$PLUGINSDIR\syslinux.exe -maf -d /uui $DestDisk' $R8 ; directory path for syslinux /uui   
+  ExecWait '$PLUGINSDIR\syslinux.exe -maf -d /AUI $DestDisk' $R8 ; directory path for syslinux /AUI
   DetailPrint "Syslinux Errors $R8"
   Banner::destroy
     ${If} $R8 != 0
@@ -595,12 +599,12 @@ Function DoSyslinux ; Install Syslinux on chosen USB
     ${EndIf} 
   ${EndIf}    
   
-  DetailPrint "Creating Label UUI on $DestDisk"
+  DetailPrint "Creating Label AUI on $DestDisk"
   ;nsExec::ExecToStack '"cmd" /c "VOL $DestDisk"' 
    ;Pop $VolLabErr
     ;Pop $VolLab
     ;MessageBox MB_ICONEXCLAMATION|MB_OK $VolLab
-  nsExec::ExecToLog '"cmd" /c "LABEL $DestDisk UUI"' 
+  nsExec::ExecToLog '"cmd" /c "LABEL $DestDisk AUI"'
 FunctionEnd
 
 Function 7zExtractor ; Extract files from archive 
@@ -613,22 +617,22 @@ Function 7zExtractor ; Extract files from archive
 ; Kon-Boot
   ${ElseIf} $DistroName == "Kon-Boot FREE"
   DetailPrint $(Extract)
-  ;ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -pkon-boot -o"$EXEDIR\TEMPUUI" -y' 
-  ;ExecWait '"$PLUGINSDIR\7zG.exe" x "$EXEDIR\TEMPUUI\kon-boot1.1-free\FD0-konboot-v1.1-2in1.zip" -pkon-boot -ir!FD0-konboot-v1.1-2in1 -o"$EXEDIR\TEMPUUI" -y'  
-  ;CopyFiles $EXEDIR\TEMPUUI\FD0-konboot-v1.1-2in1\FD0-konboot-v1.1-2in1.img "$JustDrive\konboot.img"
-  ;RMDir /R "$EXEDIR\TEMPUUI"
-  CreateDirectory "$EXEDIR\TEMPUUI" ; Create the TEMP directory
-  ExecWait '"$PLUGINSDIR\7zG.exe" e "$ISOFile" -pkon-boot -o"$EXEDIR\TEMPUUI" -y' 
-  ExecWait '"$PLUGINSDIR\7zG.exe" e "$EXEDIR\TEMPYUMI\FD0-konboot*.zip" -pkon-boot -o"$EXEDIR\TEMPUUI" -y' 
-  CopyFiles $EXEDIR\TEMPUUI\FD0-konboot-v1.1-2in1.img "$JustDrive\konboot.img" 
-  RMDir /R "$EXEDIR\TEMPUUI"  
+  ;ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -pkon-boot -o"$EXEDIR\TEMPAUI" -y'
+  ;ExecWait '"$PLUGINSDIR\7zG.exe" x "$EXEDIR\TEMPAUI\kon-boot1.1-free\FD0-konboot-v1.1-2in1.zip" -pkon-boot -ir!FD0-konboot-v1.1-2in1 -o"$EXEDIR\TEMPAUI" -y'
+  ;CopyFiles $EXEDIR\TEMPAUI\FD0-konboot-v1.1-2in1\FD0-konboot-v1.1-2in1.img "$JustDrive\konboot.img"
+  ;RMDir /R "$EXEDIR\TEMPAUI"
+  CreateDirectory "$EXEDIR\TEMPAUI" ; Create the TEMP directory
+  ExecWait '"$PLUGINSDIR\7zG.exe" e "$ISOFile" -pkon-boot -o"$EXEDIR\TEMPAUI" -y'
+  ExecWait '"$PLUGINSDIR\7zG.exe" e "$EXEDIR\TEMPYUMI\FD0-konboot*.zip" -pkon-boot -o"$EXEDIR\TEMPAUI" -y'
+  CopyFiles $EXEDIR\TEMPAUI\FD0-konboot-v1.1-2in1.img "$JustDrive\konboot.img"
+  RMDir /R "$EXEDIR\TEMPAUI"
   
   ${ElseIf} $DistroName == "Kon-Boot Purchased"
   DetailPrint $(Extract)
-  CreateDirectory "$EXEDIR\TEMPUUI" ; Create the TEMP directory
-  ExecWait '"$PLUGINSDIR\7zG.exe" e "$ISOFile" -o"$EXEDIR\TEMPUUI" -y' 
-  CopyFiles $EXEDIR\TEMPUUI\kon-bootFLOPPY.img "$JustDrive\konboot.img" 
-  RMDir /R "$EXEDIR\TEMPUUI" 
+  CreateDirectory "$EXEDIR\TEMPAUI" ; Create the TEMP directory
+  ExecWait '"$PLUGINSDIR\7zG.exe" e "$ISOFile" -o"$EXEDIR\TEMPAUI" -y'
+  CopyFiles $EXEDIR\TEMPAUI\kon-bootFLOPPY.img "$JustDrive\konboot.img"
+  RMDir /R "$EXEDIR\TEMPAUI"
   
 ; OpenSUSE 32bit 
   ${ElseIf} $DistroName == "OpenSUSE 32bit"
@@ -637,11 +641,11 @@ Function 7zExtractor ; Extract files from archive
  
 ; OpenSUSE 64bit 
   ${ElseIf} $DistroName == "OpenSUSE 64bit"
-  CreateDirectory "$EXEDIR\TEMPUUI" ; Create the TEMP directory
+  CreateDirectory "$EXEDIR\TEMPAUI" ; Create the TEMP directory
   CopyFiles $ISOFile "$JustDrive" ; Copy the ISO to USB
-  ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -o"$EXEDIR\TEMPUUI" -y' 
-  ExecWait '"$PLUGINSDIR\7zG.exe" x "$EXEDIR\TEMPUUI\*.img" -ir!boot -o"$JustDrive" -y' 
-  RMDir /R "$EXEDIR\TEMPUUI"   
+  ExecWait '"$PLUGINSDIR\7zG.exe" x "$ISOFile" -o"$EXEDIR\TEMPAUI" -y'
+  ExecWait '"$PLUGINSDIR\7zG.exe" x "$EXEDIR\TEMPAUI\*.img" -ir!boot -o"$JustDrive" -y'
+  RMDir /R "$EXEDIR\TEMPAUI"
   
   ${ElseIf} $DistroName == "Mageia"
   ; Close Open Explorer Windows to allow DD to do it's work!  
@@ -661,7 +665,7 @@ Function 7zExtractor ; Extract files from archive
   
   ; Check to see if we need to replace Syslinux with a packaged version
   ${If} ${FileExists} "$DestDisk\utils\win32\syslinux.exe"
-   ExecWait '$DestDisk\utils\win32\syslinux.exe -maf -d /uui $DestDisk' $R8 ; directory path for syslinux /uui 
+   ExecWait '$DestDisk\utils\win32\syslinux.exe -maf -d /AUI $DestDisk' $R8 ; directory path for syslinux /AUI
    DetailPrint "Installing the packaged Syslinux version from the ISO"
     DetailPrint "Syslinux Errors $R8"
     Banner::destroy
@@ -678,23 +682,23 @@ FunctionEnd
 ; ---- Let's Do This Stuff ----
 Section 
 ${If} $DistroName == "Mageia"
-MessageBox MB_YESNO|MB_ICONEXCLAMATION "${NAME} is Ready to perform the following actions:$\r$\n$\r$\n1.) Close all Open Explorer Windows $\r$\n$\r$\n2.) Create a $DistroName image on ($DestDisk). WARNING: All Data on ($DestDisk) will be irrecoverably Overwritten by this Image!$\r$\n$\r$\nAre you absolutely positive Drive ($DestDisk) is your USB Device?$\r$\nDouble Check with Windows (My Computer) to make sure!$\r$\n$\r$\nClick YES to perform these actions on ($DestDisk) or NO to Abort." IDYES proceed
+MessageBox MB_YESNO|MB_ICONEXCLAMATION "$(SECDOSTUFF_MB1)" IDYES proceed
 Quit
 ${Else}
 Goto routine
 ${EndIf}
 routine:
 ${If} $FormatMe == "Yes" 
-;MessageBox MB_YESNO|MB_ICONEXCLAMATION "${NAME} is Ready to perform the following actions:$\r$\n$\r$\n1.) Close Explorer Windows - Allows ($DestDisk) to be Fat32 Formatted!$\r$\n$\r$\n2.) Fat32 Format ($DestDisk) - All Data will be Irrecoverably Deleted!$\r$\n$\r$\n3.) Create Syslinux MBR on ($DestDisk) - Existing MBR will be Overwritten!$\r$\n$\r$\n4.) Create UUI Label on ($DestDisk) - Existing Label will be Overwritten!$\r$\n$\r$\n5.) Install ($DistroName) on ($DestDisk)$\r$\n$\r$\nAre you absolutely positive Drive ($DestDisk) is your USB Device?$\r$\nDouble Check with Windows (My Computer) to make sure!$\r$\n$\r$\nClick YES to perform these actions on ($DestDisk) or NO to Abort." IDYES proceed
-MessageBox MB_YESNO|MB_ICONEXCLAMATION "NOTE: You must manually close all Explorer Windows currently accessing ($DestDisk) so that this drive can be successfully Fat32 Formatted!$\r$\n$\r$\n ${NAME} is Ready to perform the following actions:$\r$\n$\r$\n1.) Fat32 Format ($DestDisk) - All Data will be Irrecoverably Deleted!$\r$\n$\r$\n2.) Create Syslinux MBR on ($DestDisk) - Existing MBR will be Overwritten!$\r$\n$\r$\n3.) Create UUI Label on ($DestDisk) - Existing Label will be Overwritten!$\r$\n$\r$\n4.) Install ($DistroName) on ($DestDisk)$\r$\n$\r$\nAre you absolutely positive Drive ($DestDisk) is your USB Device?$\r$\nDouble Check with Windows (My Computer) to make sure!$\r$\n$\r$\nClick YES to perform these actions on ($DestDisk) or NO to Abort." IDYES proceed
+;MessageBox MB_YESNO|MB_ICONEXCLAMATION "${NAME} is Ready to perform the following actions:$\r$\n$\r$\n1.) Close Explorer Windows - Allows ($DestDisk) to be Fat32 Formatted!$\r$\n$\r$\n2.) Fat32 Format ($DestDisk) - All Data will be Irrecoverably Deleted!$\r$\n$\r$\n3.) Create Syslinux MBR on ($DestDisk) - Existing MBR will be Overwritten!$\r$\n$\r$\n4.) Create AUI Label on ($DestDisk) - Existing Label will be Overwritten!$\r$\n$\r$\n5.) Install ($DistroName) on ($DestDisk)$\r$\n$\r$\nAre you absolutely positive Drive ($DestDisk) is your USB Device?$\r$\nDouble Check with Windows (My Computer) to make sure!$\r$\n$\r$\nClick YES to perform these actions on ($DestDisk) or NO to Abort." IDYES proceed
+MessageBox MB_YESNO|MB_ICONEXCLAMATION "$(SECDOSTUFF_MB2)" IDYES proceed
 Quit
 ${Else}
-MessageBox MB_YESNO|MB_ICONEXCLAMATION "${NAME} is Ready to perform the following actions:$\r$\n$\r$\n1.) Create Syslinux MBR on ($DestDisk) - Existing MBR will be Overwritten!$\r$\n$\r$\n2.) Create UUI Label on ($DestDisk) - Existing Label will be Overwritten!$\r$\n$\r$\n3.) Install ($DistroName) on ($DestDisk)$\r$\n$\r$\nAre you positive Drive ($DestDisk) is your USB Device?$\r$\nDouble Check with Windows (My Computer) to make sure!$\r$\n$\r$\nClick YES to perform these actions on ($DestDisk) or NO to Abort." IDYES proceed
+MessageBox MB_YESNO|MB_ICONEXCLAMATION "$(SECDOSTUFF_MB3)" IDYES proceed
 Quit
 ${EndIf}
 proceed:
 ${If} ${FileExists} "$DestDisk\windows\system32" ; To add additional safeguard from user ignorance.
-MessageBox MB_ICONSTOP|MB_OK "ABORTING! ($DestDisk) contains a WINDOWS/SYSTEM32 Directory."
+MessageBox MB_ICONSTOP|MB_OK "$(SECDOSTUFF_MB4)"
 Quit
 ${Else}
  Call FormatYes ; Format the Drive?
@@ -711,7 +715,7 @@ Function .onInit
  userInfo::getAccountType
   Pop $Auth
    strCmp $Auth "Admin" done
-    Messagebox MB_OK|MB_ICONINFORMATION "Currently you're trying to run this program as: $Auth$\r$\n$\r$\nYou must run this program with administrative rights...$\r$\n$\r$\nRight click the file and select Run As Administrator or Run As (and select an administrative account)!"
+    Messagebox MB_OK|MB_ICONINFORMATION "$(ONINIT_MB1)"
   abort
  done:
  SetShellVarContext all
