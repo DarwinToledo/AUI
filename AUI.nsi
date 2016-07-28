@@ -234,7 +234,7 @@ FunctionEnd
 
 Function onClickMyLink
   Pop $Links ; pop something to prevent corruption
-  ExecShell "open" "http://www.pendrivelinux.com/universal-usb-installer-easy-as-1-2-3/"
+  ExecShell "open" "${RODRI_WEBLINK}"
 FunctionEnd
 
 Function onClickLinuxSite

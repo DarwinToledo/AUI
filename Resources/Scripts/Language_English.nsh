@@ -9,7 +9,7 @@
        LangString License_Subtitle        ${RODRILANG} "Please review the license terms before proceeding"
        LangString License_Text_Top        ${RODRILANG} "The software within this program falls under the following Licenses."
        LangString License_Text_Bottom     ${RODRILANG} "You must accept the terms of this License agreement to run this ${NAME}. If you agree, Click I Agree to Continue."
-       LangString SelectDist_Title        ${RODRILANG} "Setup your Selections Page"
+       LangString SelectDist_Title        ${RODRILANG} "Drive Selection and Distro Options Page"
        LangString SelectDist_Subtitle     ${RODRILANG} "Choose a Linux Distro, ISO/ZIP file and, your USB Flash Drive."
        LangString Distro_Text             ${RODRILANG} "Step 1: Select a Linux Distribution from the dropdown to put on your USB"
        LangString IsoPage_Title           ${RODRILANG} "Select Your $FileFormat"
