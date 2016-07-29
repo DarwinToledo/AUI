@@ -8,7 +8,7 @@
            !define NAME2               "AUI"
            !define FILENAME            "Absolute-USB-Installer"
            !define DESKTOP_USER        "Rodrigo"
-           !define VERSION             "1.0.0.${BUILD_NUMBER}"
+           !define VERSION             "2.0.0.${BUILD_NUMBER}"
 
            #INST RESOURCES
            !define MUI_ICON            "Resources\Images\Install.ico"
