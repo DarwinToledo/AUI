@@ -35,12 +35,13 @@
             !execute "Resources\Scripts\Build Counter v1.0.exe"
          
             !addincludedir "Resources\Scripts"
+            !addplugindir  "Resources\Plugins"
             !include       "Resources\Scripts\Defines.nsh"
 
             ; MoreInfo Plugin - Adds Version Tab fields to Properties. Plugin created by onad http://nsis.sourceforge.net/MoreInfo_plug-in
             VIProductVersion "${VERSION}"
-            VIAddVersionKey CompanyName "pendrivelinux.com"
-            VIAddVersionKey LegalCopyright "Copyright ©2009-2013 Lance Pendrivelinux.com"
+            VIAddVersionKey CompanyName "www.usbwithlinux.com"
+            VIAddVersionKey LegalCopyright "Copyright ©2016 Darwin Toledo www.usbwithlinux.com"
             VIAddVersionKey FileVersion "${VERSION}"
             VIAddVersionKey FileDescription "Universal Linux UFD Creator"
             VIAddVersionKey License "GPL Version 2"
@@ -53,7 +54,7 @@
             CRCCheck On
             XPStyle on
             ShowInstDetails show
-            BrandingText "${NAME} ${RODRI_WEBSITE}"
+            BrandingText "${NAME2} ${RODRI_WEBSITE}"
             CompletedText "Installation Done, Process is Complete!"
             InstallButtonText $(Create_Button)
 
@@ -78,6 +79,7 @@
 #===========================================================
 
             ; Interface settings
+            !define MUI_CUSTOMFUNCTION_GUIINIT AUMBIInit
             !define MUI_FINISHPAGE_NOAUTOCLOSE
             !define MUI_HEADERIMAGE
             !define MUI_HEADERIMAGE_BITMAP "Resources\images\usb-logo-nsis.bmp"
@@ -88,7 +90,7 @@
             !define MUI_TEXT_LICENSE_SUBTITLE $(License_Subtitle)
             !define MUI_LICENSEPAGE_TEXT_TOP $(License_Text_Top)
             !define MUI_LICENSEPAGE_TEXT_BOTTOM $(License_Text_Bottom)
-            !insertmacro MUI_PAGE_LICENSE "Uni-USB-Installer-Copying.txt"
+            !insertmacro MUI_PAGE_LICENSE "AUI.rtf"
 
             ; Distro Selection Page
             Page custom SelectionsPage
@@ -738,4 +740,8 @@ Function SetISOSize ; Get size of ISO
  StrCpy $SizeOfCasper "$1"
  ;MessageBox MB_OK|MB_ICONINFORMATION "ISO Size: $SizeOfCasper"
  System::Call 'kernel32::CloseHandle(i r0)'
+FunctionEnd
+
+Function AUMBIInit
+  Aero::Apply
 FunctionEnd
