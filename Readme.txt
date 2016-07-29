@@ -12,12 +12,13 @@ DD for Windows (dd.exe) and Mke2fs are used to make a casper-rw persistent file 
 
 Credits Resources and Tools used:
   
+    * Lance YUMI, UUI Tools http://www.pendrivelinux.com
     * Grub4DOS grldr © the Gna! people http://www.gnu.org/software/grub (unmodified binary used) : Specific Grub4DOS link: http://gna.org/projects/grub4dos/
     * Syslinux © H. Peter Anvin http://syslinux.zytor.com (unmodified binary used)
     * DD for Windows dd.exe © John Newbigin http://www.chrysocome.net/dd (unmodified binary used)
     * mke2fs.exe © Matt WU http://ext2fsd.sourceforge.net (unmodified binary used)
     * 7-Zip is © Igor Pavlovis http://7-zip.org (unmodified binaries were used)
-	* Fat32format.exe © Tom Thornhill Ridgecorp Consultants http://www.ridgecrop.demon.co.uk (unmodified binary used)	
+	  * Fat32format.exe © Tom Thornhill Ridgecorp Consultants http://www.ridgecrop.demon.co.uk (unmodified binary used)	
     * Created with NSIS Installer © Contributors http://nsis.sourceforge.net (used to compile the .nsi script)
 	
 NSIS is the easiest method I could find to automate the creation process, aside from batch installers which we have moved away from.

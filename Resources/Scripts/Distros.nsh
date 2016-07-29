@@ -475,11 +475,11 @@ FunctionEnd
   
   ${EndIf} 
  
-  File /oname=$PLUGINSDIR\Uni-USB-Installer-Copying.txt "Uni-USB-Installer-Copying.txt"
-  File /oname=$PLUGINSDIR\Uni-USB-Installer-Readme.txt "Uni-USB-Installer-Readme.txt" 
+  File /oname=$PLUGINSDIR\AUI.rtf "AUI.rtf"
+  File /oname=$PLUGINSDIR\Readme.txt "Readme.txt"
   File /oname=$PLUGINSDIR\license.txt "license.txt"  
-  nsExec::ExecToLog '"xcopy" "$PLUGINSDIR\Uni-USB-Installer-Copying.txt" /f/y "$DestDisk\"' ; Copy Licenses to the drive
-  nsExec::ExecToLog '"xcopy" "$PLUGINSDIR\Uni-USB-Installer-Readme.txt" /f/y "$DestDisk\"' ; Copy Readme.txt to the drive
+  nsExec::ExecToLog '"xcopy" "$PLUGINSDIR\AUI.rtf" /f/y "$DestDisk\"' ; Copy Licenses to the drive
+  nsExec::ExecToLog '"xcopy" "$PLUGINSDIR\Readme.txt" /f/y "$DestDisk\"' ; Copy Readme.txt to the drive
   nsExec::ExecToLog '"xcopy" "$PLUGINSDIR\license.txt" /f/y "$DestDisk\"' ; Copy license.txt to the drive  
   Call OldSysFix
   

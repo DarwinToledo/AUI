@@ -25,6 +25,10 @@
        LangString Install_Title           ${RODRILANG} "Installing $DistroName"
        LangString Install_SubTitle        ${RODRILANG} "Please wait while ${NAME} installs $DistroName on $DestDisk"
        LangString Install_Finish_Sucess   ${RODRILANG} "${NAME} sucessfully installed $DistroName on $DestDisk"
+        ;LangString Finish_Install           ${RODRILANG} "$InUnStallation is Complete."
+        ;LangString Finish_Title             ${RODRILANG} "${NAME} has completed the $InUnStallation."
+        ;LangString Finish_Text              ${RODRILANG} "Your Selections have been $InUnStalled on your USB drive.$\r$\n$\r$\nFeel Free to run this tool again to $InUnStall more Distros.$\r$\n$\r$\n${NAME} will keep track of selections you have already $InUnStalled."
+        ;LangString Finish_Link              ${RODRILANG} "Visitar la web de $OfficialName"
 
        LangString Create_Button           ${RODRILANG} "Create"
        LangString SELPAGE_DOWNLOAD_LINK   ${RODRILANG} "Download Link"

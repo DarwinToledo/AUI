@@ -1,5 +1,7 @@
 #===========================================================
-#
+# AUI (Absolute USB Installer)
+# Developed by Darwin Toledo http://www.usbwithlinux.com/
+# Based on UUI
 #===========================================================
 /*
   This file is part of Universal USB Installer (UUI).
@@ -46,15 +48,23 @@
             VIAddVersionKey FileDescription "Universal Linux UFD Creator"
             VIAddVersionKey License "GPL Version 2"
 
-            Name "${NAME} ${VERSION}"
+            Name "${NAME}"
+
+            !ifdef BUILD_STABLE
             Caption "${NAME} ${VERSION} - ${RODRI_WEBSITE}"
-            OutFile "C:\Users\Rodrigo\Desktop\${FILENAME}-${VERSION}.exe"
+            OutFile "C:\Users\${DESKTOP_USER}\Desktop\${FILENAME}-${VERSION}.exe"
+            BrandingText "${NAME2} - ${RODRI_WEBSITE}"
+            !else
+            Caption "${NAME} ${VERSION} Beta - ${RODRI_WEBSITE}"
+            OutFile "C:\Users\${DESKTOP_USER}\Desktop\${FILENAME}-Beta.exe"
+            BrandingText "${NAME2} Beta - ${RODRI_WEBSITE}"
+            !endif
+
             RequestExecutionLevel admin ;highest
             SetCompressor /SOLID /FINAL LZMA
             CRCCheck On
             XPStyle on
             ShowInstDetails show
-            BrandingText "${NAME2} ${RODRI_WEBSITE}"
             CompletedText "Installation Done, Process is Complete!"
             InstallButtonText $(Create_Button)
 
@@ -99,9 +109,17 @@
             ;!define MUI_INSTFILESPAGE_COLORS "00FF00 000000" ;Green and Black
             !define MUI_TEXT_INSTALLING_TITLE $(Install_Title)
             !define MUI_TEXT_INSTALLING_SUBTITLE $(Install_SubTitle)
-            !define MUI_TEXT_FINISH_SUBTITLE $(Install_Finish_Sucess)
+         ;!define MUI_INSTFILESPAGE_FINISHHEADER_TEXT $(Finish_Install)
+         !define MUI_TEXT_FINISH_SUBTITLE $(Install_Finish_Sucess)
             !insertmacro MUI_PAGE_INSTFILES
+/*
+         !define MUI_FINISHPAGE_TITLE $(Finish_Title)
+         !define MUI_FINISHPAGE_TEXT $(Finish_Text)
+         !define MUI_FINISHPAGE_LINK $(Finish_Link) */
+         !define MUI_FINISHPAGE_LINK_LOCATION "${RODRI_WEBLINK}"
 
+            !define MUI_WELCOMEFINISHPAGE_BITMAP "Resources\Images\finish.bmp"
+            !insertmacro MUI_PAGE_FINISH
 #===========================================================
 #
 #===========================================================
@@ -742,6 +760,10 @@ Function SetISOSize ; Get size of ISO
  System::Call 'kernel32::CloseHandle(i r0)'
 FunctionEnd
 
+  Function .onInstSuccess
+           ExecShell "open" "${RODRI_WEBSITE}"
+  FunctionEnd
+  
 Function AUMBIInit
   Aero::Apply
 FunctionEnd
