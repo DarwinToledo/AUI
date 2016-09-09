@@ -90,7 +90,7 @@
 
             ; Interface settings
             !define MUI_CUSTOMFUNCTION_GUIINIT AUMBIInit
-            !define MUI_FINISHPAGE_NOAUTOCLOSE
+            ;!define MUI_FINISHPAGE_NOAUTOCLOSE
             !define MUI_HEADERIMAGE
             !define MUI_HEADERIMAGE_BITMAP "Resources\images\usb-logo-nsis.bmp"
             !define MUI_HEADERIMAGE_BITMAP_NOSTRETCH
