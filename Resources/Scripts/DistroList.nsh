@@ -22,24 +22,35 @@ Function SetISOFileName
  ${SetISOFileNames}"--- Ubuntu 32/64 Bit ---" "" "" "" "" ""
  ${SetISOFileNames}"" "" "" "" "" ""
 	 
- ${SetISOFileNames} "Ubuntu 32 bit"      "ubuntu*desktop*i386.iso"           "http://releases.ubuntu.com/16.04.1/ubuntu-16.04.1-desktop-i386.iso" "casper" "http://www.ubuntu.com/desktop" "Ubuntu"
- ${SetISOFileNames} "Ubuntu 64 bit"      "ubuntu*desktop*amd64.iso"          "http://releases.ubuntu.com/16.04.1/ubuntu-16.04.1-desktop-amd64.iso" "casper" "http://www.ubuntu.com/desktop" "Ubuntu"
- ${SetISOFileNames} "Kubuntu 32 bit"     "kubuntu*desktop*i386.iso"          "http://cdimage.ubuntu.com/kubuntu/releases/16.04.1/release/kubuntu-16.04.1-desktop-i386.iso" "casper" "http://www.kubuntu.org" "Kubuntu"
- ${SetISOFileNames} "Kubuntu 64 bit"     "kubuntu*desktop*amd64.iso"         "http://cdimage.ubuntu.com/kubuntu/releases/16.04.1/release/kubuntu-16.04.1-desktop-amd64.iso" "casper" "http://www.kubuntu.org" "Kubuntu"
- ${SetISOFileNames} "Lubuntu 32 bit"        "lubuntu*desktop*i386.iso"       "http://cdimage.ubuntu.com/lubuntu/releases/16.04/release/lubuntu-16.04.1-desktop-i386.iso" "casper" "http://lubuntu.net" "Lubuntu"
- ${SetISOFileNames} "Lubuntu 64 bit"        "lubuntu*desktop*amd64.iso"      "http://cdimage.ubuntu.com/lubuntu/releases/16.04/release/lubuntu-16.04.1-desktop-amd64.iso" "casper" "http://lubuntu.net" "Lubuntu"
- ${SetISOFileNames} "Xubuntu 32 bit"        "xubuntu*desktop*i386.iso"       "http://cdimage.ubuntu.com/xubuntu/releases/16.04/release/xubuntu-16.04.1-desktop-i386.iso" "casper" "http://xubuntu.org" "Xubuntu"
- ${SetISOFileNames} "Xubuntu 64 bit"        "xubuntu*desktop*amd64.iso"      "http://cdimage.ubuntu.com/xubuntu/releases/16.04/release/xubuntu-16.04.1-desktop-amd64.iso" "casper" "http://xubuntu.org" "Xubuntu"
- ${SetISOFileNames} "Ubuntu Gnome 32 bit"   "ubuntu-gnome*desktop*i386.iso"  "http://cdimage.ubuntu.com/ubuntu-gnome/releases/16.04/release/ubuntu-gnome-16.04.1-desktop-i386.iso" "casper" "http://www.ubuntugnome.org" "Ubuntu Gnome"
- ${SetISOFileNames} "Ubuntu Gnome 64 bit"   "ubuntu-gnome*desktop*amd64.iso" "http://cdimage.ubuntu.com/ubuntu-gnome/releases/16.04/release/ubuntu-gnome-16.04.1-desktop-amd64.iso" "casper" "http://www.ubuntugnome.org" "Ubuntu Gnome"
- ${SetISOFileNames} "Ubuntu Mate 32 bit"    "ubuntu-mate*desktop*i386.iso"   "http://cdimage.ubuntu.com/ubuntu-mate/releases/16.04/release/ubuntu-mate-16.04.1-desktop-i386.iso" "casper" "https://ubuntu-mate.org/" "Ubuntu Mate"
- ${SetISOFileNames} "Ubuntu Mate 64 bit"    "ubuntu-mate*desktop*amd64.iso"  "http://cdimage.ubuntu.com/ubuntu-mate/releases/16.04/release/ubuntu-mate-16.04.1-desktop-amd64.iso" "casper" "https://ubuntu-mate.org/" "Ubuntu Mate"
- ${SetISOFileNames} "Ubuntu Server 32 bit"  "ubuntu*server*i386.iso"         "http://releases.ubuntu.com/16.04/ubuntu-16.04.1-server-i386.iso" "NULL" "http://www.ubuntu.com/server" "Ubuntu Server"
- ${SetISOFileNames} "Ubuntu Server 64 bit"  "ubuntu*server*amd64.iso"        "http://releases.ubuntu.com/16.04/ubuntu-16.04.1-server-amd64.iso" "NULL" "http://www.ubuntu.com/server" "Ubuntu Server"
- ${SetISOFileNames} "Ubuntu Studio 32 bit"  "ubuntustudio*i386.iso"          "http://cdimage.ubuntu.com/ubuntustudio/releases/16.04/release/ubuntustudio-16.04.1-dvd-i386.iso" "casper" "http://ubuntustudio.org" "Ubuntu Studio"
- ${SetISOFileNames} "Ubuntu Studio 64 bit"  "ubuntustudio*amd64.iso"         "http://cdimage.ubuntu.com/ubuntustudio/releases/16.04/release/ubuntustudio-16.04.1-dvd-amd64.iso" "casper" "http://ubuntustudio.org" "Ubuntu Studio"
- ${SetISOFileNames} "Edubuntu 32 bit"       "edubuntu*i386.iso"              "http://cdimage.ubuntu.com/edubuntu/releases/trusty/release/edubuntu-14.04.4-dvd-i386.iso" "casper" "http://edubuntu.org" "Edubuntu"
- ${SetISOFileNames} "Edubuntu 64 bit"       "edubuntu*amd64.iso"             "http://cdimage.ubuntu.com/edubuntu/releases/trusty/release/edubuntu-14.04.4-dvd-amd64.iso" "casper" "http://edubuntu.org" "Edubuntu"
+ ${SetISOFileNames} "Ubuntu 32 bit"         "ubuntu*desktop*i386.iso"        "http://www.usbwithlinux.com/2016/09/ubuntu-32-bit.html"       "casper" "http://www.ubuntu.com/desktop" "Ubuntu"
+ ${SetISOFileNames} "Ubuntu 64 bit"         "ubuntu*desktop*amd64.iso"       "http://www.usbwithlinux.com/2016/09/ubuntu-64-bit.html"       "casper" "http://www.ubuntu.com/desktop" "Ubuntu"
+
+ ${SetISOFileNames} "Kubuntu 32 bit"        "kubuntu*desktop*i386.iso"       "http://www.usbwithlinux.com/2016/09/kubuntu-32bit.html"       "casper" "http://www.kubuntu.org" "Kubuntu"
+ ${SetISOFileNames} "Kubuntu 64 bit"        "kubuntu*desktop*amd64.iso"      "http://www.usbwithlinux.com/2016/09/kubuntu-64-bit.html"      "casper" "http://www.kubuntu.org" "Kubuntu"
+
+ ${SetISOFileNames} "Lubuntu 32 bit"        "lubuntu*desktop*i386.iso"       "http://www.usbwithlinux.com/2016/09/lubuntu-32-bit.html"      "casper" "http://lubuntu.net" "Lubuntu"
+ ${SetISOFileNames} "Lubuntu 64 bit"        "lubuntu*desktop*amd64.iso"      "http://www.usbwithlinux.com/2016/09/lubuntu-64-bit.html"      "casper" "http://lubuntu.net" "Lubuntu"
+
+ ${SetISOFileNames} "Xubuntu 32 bit"        "xubuntu*desktop*i386.iso"       "http://www.usbwithlinux.com/2016/09/xubuntu-32-bit.html"      "casper" "http://xubuntu.org" "Xubuntu"
+ ${SetISOFileNames} "Xubuntu 64 bit"        "xubuntu*desktop*amd64.iso"      "http://www.usbwithlinux.com/2016/09/xubuntu-64-bit.html"      "casper" "http://xubuntu.org" "Xubuntu"
+
+ ${SetISOFileNames} "Ubuntu Gnome 32 bit"   "ubuntu-gnome*desktop*i386.iso"  "http://www.usbwithlinux.com/2016/09/ubuntu-gnome-32-bit.html" "casper" "http://www.ubuntugnome.org" "Ubuntu Gnome"
+ ${SetISOFileNames} "Ubuntu Gnome 64 bit"   "ubuntu-gnome*desktop*amd64.iso" "http://www.usbwithlinux.com/2016/09/ubuntu-gnome-64-bit.html" "casper" "http://www.ubuntugnome.org" "Ubuntu Gnome"
+
+ ${SetISOFileNames} "Ubuntu Mate 32 bit"    "ubuntu-mate*desktop*i386.iso"   "http://www.usbwithlinux.com/2016/09/ubuntu-mate-32-bit.html"  "casper" "https://ubuntu-mate.org/" "Ubuntu Mate"
+ ${SetISOFileNames} "Ubuntu Mate 64 bit"    "ubuntu-mate*desktop*amd64.iso"  "http://www.usbwithlinux.com/2016/09/ubuntu-mate-64-bit.html"  "casper" "https://ubuntu-mate.org/" "Ubuntu Mate"
+
+ ${SetISOFileNames} "Ubuntu Server 32 bit"  "ubuntu*server*i386.iso"         "http://www.usbwithlinux.com/2016/09/ubuntu-server-32-bit.html" "NULL" "http://www.ubuntu.com/server" "Ubuntu Server"
+ ${SetISOFileNames} "Ubuntu Server 64 bit"  "ubuntu*server*amd64.iso"        "http://www.usbwithlinux.com/2016/09/ubuntu-server-64-bit.html" "NULL" "http://www.ubuntu.com/server" "Ubuntu Server"
+
+ ${SetISOFileNames} "Ubuntu Studio 32 bit"  "ubuntustudio*i386.iso"          "http://www.usbwithlinux.com/2016/09/ubuntu-studio-32-bit.html" "casper" "http://ubuntustudio.org" "Ubuntu Studio"
+ ${SetISOFileNames} "Ubuntu Studio 64 bit"  "ubuntustudio*amd64.iso"         "http://www.usbwithlinux.com/2016/09/ubuntu-studio-64-bit.html" "casper" "http://ubuntustudio.org" "Ubuntu Studio"
+
+ ${SetISOFileNames} "Edubuntu 32 bit"       "edubuntu*i386.iso"              "http://www.usbwithlinux.com/2016/09/edubuntu-32-bit.html"      "casper" "http://edubuntu.org" "Edubuntu"
+ ${SetISOFileNames} "Edubuntu 64 bit"       "edubuntu*amd64.iso"             "http://www.usbwithlinux.com/2016/09/edubuntu-64-bit.html"      "casper" "http://edubuntu.org" "Edubuntu"
+
+ ${SetISOFileNames} "Ubuntu Other/Any"       "*buntu*.iso"                   "http://www.usbwithlinux.com/search/label/Ubuntu"      "casper" "http://edubuntu.org" "Edubuntu"
+
 
      ${SetISOFileNames}"" "" "" "" "" ""
      ${SetISOFileNames}"--- Linux Mint 32/64 Bit ---" "" "" "" "" ""

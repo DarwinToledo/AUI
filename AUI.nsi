@@ -92,18 +92,20 @@
             !define MUI_CUSTOMFUNCTION_GUIINIT AUMBIInit
             ;!define MUI_FINISHPAGE_NOAUTOCLOSE
             !define MUI_HEADERIMAGE
-            !define MUI_HEADERIMAGE_BITMAP "Resources\images\usb-logo-nsis.bmp"
-            !define MUI_HEADERIMAGE_BITMAP_NOSTRETCH
-            !define MUI_HEADERIMAGE_RIGHT
+            !define MUI_HEADERIMAGE_BITMAP "Resources\images\AUI_BKG.bmp"
+            !define MUI_UI_HEADERIMAGE "Resources\UI\AUMBI_UI.exe"
+            ;!define MUI_HEADERIMAGE_BITMAP_NOSTRETCH
+            ;!define MUI_HEADERIMAGE_RIGHT
 
             ; License Agreement Page
             !define MUI_TEXT_LICENSE_SUBTITLE $(License_Subtitle)
             !define MUI_LICENSEPAGE_TEXT_TOP $(License_Text_Top)
             !define MUI_LICENSEPAGE_TEXT_BOTTOM $(License_Text_Bottom)
+            !define MUI_PAGE_CUSTOMFUNCTION_SHOW License_ShowFunction
             !insertmacro MUI_PAGE_LICENSE "AUI.rtf"
 
             ; Distro Selection Page
-            Page custom SelectionsPage
+            Page custom SelectionsPage_Show
 
             ; Install Files Page
             ;!define MUI_INSTFILESPAGE_COLORS "00FF00 000000" ;Green and Black
@@ -111,6 +113,7 @@
             !define MUI_TEXT_INSTALLING_SUBTITLE $(Install_SubTitle)
          ;!define MUI_INSTFILESPAGE_FINISHHEADER_TEXT $(Finish_Install)
          !define MUI_TEXT_FINISH_SUBTITLE $(Install_Finish_Sucess)
+                 !define MUI_PAGE_CUSTOMFUNCTION_SHOW InstFiles_ShowFunction
             !insertmacro MUI_PAGE_INSTFILES
 /*
          !define MUI_FINISHPAGE_TITLE $(Finish_Title)
@@ -118,8 +121,9 @@
          !define MUI_FINISHPAGE_LINK $(Finish_Link) */
          !define MUI_FINISHPAGE_LINK_LOCATION "${RODRI_WEBLINK}"
 
-            !define MUI_WELCOMEFINISHPAGE_BITMAP "Resources\Images\finish.bmp"
-            !insertmacro MUI_PAGE_FINISH
+            ;!define MUI_WELCOMEFINISHPAGE_BITMAP "Resources\Images\finish.bmp"
+            ;!insertmacro MUI_PAGE_FINISH
+         Page custom fnc_AUMBI_FINISH_Show
 #===========================================================
 #
 #===========================================================
@@ -224,7 +228,8 @@ Function SelectionsPage
   ${NSD_CreateLink} 0 210 100% 14 "$(SELPAGE_VISITHELP)"
   Pop $Link
   ${NSD_OnClick} $Link onClickMyLink   
-  
+
+Call BKG_BITMAP
 ; Disable Next Button until a selection is made for all 
   GetDlgItem $6 $HWNDPARENT 1
   EnableWindow $6 0 
@@ -760,10 +765,147 @@ Function SetISOSize ; Get size of ISO
  System::Call 'kernel32::CloseHandle(i r0)'
 FunctionEnd
 
-  Function .onInstSuccess
-           ExecShell "open" "${RODRI_WEBSITE}"
-  FunctionEnd
+           Function .onInstSuccess
+                    ExecShell "open" "${RODRI_WEBSITE}"
+          FunctionEnd
   
-Function AUMBIInit
-  Aero::Apply
-FunctionEnd
+          Function AUMBIInit
+                   FindWindow $R0 "#32770" "" $HWNDPARENT
+                   GetDlgItem $R0 $HWNDPARENT 9116
+                   SendMessage $R0 ${WM_SETTEXT} 0 "STR:"
+                   SetCtlColors $R0 0xc9c9c9 transparent
+
+                   CreateFont $1 "Segoe UI" "16" "1000"
+                   SendMessage $R0 ${WM_SETFONT} $1 1
+
+                   GetDlgItem $R8 $HWNDPARENT 1256
+                   ShowWindow $R8 ${SW_HIDE}
+
+                   GetDlgItem $R7 $HWNDPARENT 1028
+                   ShowWindow $R7 ${SW_HIDE}
+                   GetDlgItem $R6 $HWNDPARENT 1035
+                   ShowWindow $R6 ${SW_HIDE}
+         FunctionEnd
+
+
+         Function License_ShowFunction
+                  Call PageRefreshPre
+
+                  GetDlgItem $R0 $HWNDPARENT 9116
+                  SendMessage $R0 ${WM_SETTEXT} 0 "STR:$(LICENSE_AUMBI_TOP_TEXT)"
+                  SetCtlColors $R0 0xc9c9c9 transparent
+
+                  CreateFont $1 "Segoe UI" "16" "1000"
+                  SendMessage $R0 ${WM_SETFONT} $1 1
+
+                  SetCtlColors $mui.LicensePage 0xFFFFFF transparent
+                  SetCtlColors $mui.LicensePage.TopText 0x000000 transparent
+                  SetCtlColors $mui.LicensePage.Text 0x000000 transparent
+
+
+         FunctionEnd
+         
+         Function PageRefreshPre
+                    SetBrandingImage /IMGID=1046 "$PLUGINSDIR\modern-header.bmp"
+         FunctionEnd
+
+         Var AUMBI_CST_Bitmap1
+         Var AUMBI_CST_Bitmap1_hImage
+         Function BKG_BITMAP
+
+                  ${NSD_CreateBitmap} 0u 0u 297.52u 141.54u ""
+                  Pop $AUMBI_CST_Bitmap1
+                  File "/oname=$PLUGINSDIR\AUMBI_ND_BKG.bmp" "Resources\Images\AUMBI_ND_BKG.bmp"
+                  ${NSD_SetImage} $AUMBI_CST_Bitmap1 "$PLUGINSDIR\AUMBI_ND_BKG.bmp" $AUMBI_CST_Bitmap1_hImage
+
+         FunctionEnd
+
+         Function SelectionsPage_Color_Title
+
+                  Call PageRefreshPre
+                  GetDlgItem $R0 $HWNDPARENT 9116
+                  SendMessage $R0 ${WM_SETTEXT} 0 "STR:$(SELECTION_AUMBI_TOP_TEXT)"
+                  SetCtlColors $R0 0xc9c9c9 transparent
+
+                  CreateFont $1 "Segoe UI" "16" "1000"
+                  SendMessage $R0 ${WM_SETFONT} $1 1
+
+                  Call PageRefreshShow
+         FunctionEnd
+
+         Function PageRefreshShow
+                    GetDlgItem $0 $HWNDPARENT 1
+                    ShowWindow $0 ${SW_HIDE}
+                    GetDlgItem $0 $HWNDPARENT 2
+                    ShowWindow $0 ${SW_HIDE}
+                    GetDlgItem $0 $HWNDPARENT 1
+                    ShowWindow $0 ${SW_SHOW}
+                    GetDlgItem $0 $HWNDPARENT 2
+                    ShowWindow $0 ${SW_SHOW}
+         FunctionEnd
+
+        Function SelectionsPage_Show
+                  Call SelectionsPage_Color_Title
+                  Call SelectionsPage
+                  nsDialogs::Show
+        FunctionEnd
+
+
+         Var AUMBI_FINISH
+         Var AUMBI_FINISH_Link1
+         Var AUMBI_FINISH_Label2
+
+         Function InstFinish_ShowFunction
+
+                  GetDlgItem $R0 $HWNDPARENT 9116
+                  SendMessage $R0 ${WM_SETTEXT} 0 "STR:$(FINISH_AUMBI_TEXT)"
+                  SetCtlColors $R0 0xc9c9c9 transparent
+
+                  CreateFont $1 "Segoe UI" "16" "1000"
+                  SendMessage $R0 ${WM_SETFONT} $1 1
+
+         FunctionEnd
+
+
+         Function fnc_AUMBI_FINISH_Create
+
+                  nsDialogs::Create 1044
+                  Pop $AUMBI_FINISH
+                  ${If} $AUMBI_FINISH == error
+                        Abort
+                  ${EndIf}
+                  SetCtlColors $AUMBI_FINISH 0x000000 transparent
+
+                  ${NSD_CreateLink} 17.11u 172.31u 200.1u 12.31u "$(Finish_Link)"
+                  Pop $AUMBI_FINISH_Link1
+                  SetCtlColors $AUMBI_FINISH_Link1 0x000000 transparent
+                  ${NSD_OnClick} $AUMBI_FINISH_Link1 onClickMyLink
+
+                  ${NSD_CreateLabel} 26.99u 54.77u 273.82u 47.38u "$(Finish_Text)"
+                  Pop $AUMBI_FINISH_Label2
+                  SetCtlColors $AUMBI_FINISH_Label2 0x000000 transparent
+
+         FunctionEnd
+
+
+         Function fnc_AUMBI_FINISH_Show
+                  Call PageRefreshPre
+                  Call fnc_AUMBI_FINISH_Create
+                  Call InstFinish_ShowFunction
+                  nsDialogs::Show
+         FunctionEnd
+
+         Function InstFiles_ShowFunction
+                  Call PageRefreshPre
+                  GetDlgItem $R0 $HWNDPARENT 9116
+                  SendMessage $R0 ${WM_SETTEXT} 0 "STR:$(INSTALL_AUMBI_TOP_TEXT)"
+                  SetCtlColors $R0 0xc9c9c9 transparent
+
+                  CreateFont $1 "Segoe UI" "16" "1000"
+                  SendMessage $R0 ${WM_SETFONT} $1 1
+
+                  SetCtlColors $mui.InstFilesPage      0xFFFFFF transparent
+                  ;SetCtlColors $mui.InstFilesPage.Text 0x000000 transparent
+
+                  Call PageRefreshShow
+         FunctionEnd
